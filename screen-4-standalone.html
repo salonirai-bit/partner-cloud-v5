@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask: Partner Cloud Setup - Features Discovery</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; }
+
+    /* Shell */
+    .shell { display: flex; flex-direction: column; width: 100%; height: 100vh; overflow: hidden; }
+
+    /* Header */
+    .header { display: flex; align-items: center; justify-content: space-between; height: 42px; padding: 0 16px; background: #fff; border-bottom: 1px solid #e5e5e5; flex-shrink: 0; }
+    .header-left { display: flex; align-items: center; }
+    .header-center { display: flex; align-items: center; justify-content: center; flex: 1; }
+    .header-right { display: flex; align-items: center; gap: 14px; }
+    .search-bar { display: flex; align-items: center; height: 32px; width: 400px; border: 1px solid #e5e5e5; border-radius: 4px; background: #fff; overflow: hidden; }
+    .search-scope { display: flex; align-items: center; padding: 0 10px; height: 100%; font-size: 12px; color: #3e3e3c; border-right: 1px solid #e5e5e5; }
+    .search-input { flex: 1; height: 100%; border: none; outline: none; font-size: 13px; padding: 0 10px; font-family: inherit; }
+    .icon-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; align-items: center; }
+    .avatar-circle { width: 28px; height: 28px; border-radius: 50%; background: #032e61; display: flex; align-items: center; justify-content: center; }
+
+    /* Navbar */
+    .navbar { display: flex; align-items: center; height: 40px; padding: 0 12px; background: #fff; border-bottom: 1px solid #e5e5e5; flex-shrink: 0; }
+    .navbar-left { display: flex; align-items: center; gap: 8px; padding-right: 16px; border-right: 1px solid #e5e5e5; margin-right: 8px; }
+    .navbar-title { font-size: 14px; font-weight: 700; color: #032e61; }
+    .navbar-tabs { display: flex; gap: 4px; }
+    .navbar-tab { padding: 8px 12px; font-size: 13px; color: #181818; text-decoration: none; border-radius: 4px; }
+    .navbar-tab.active { background: #eef4ff; box-shadow: inset 0px 3px 0px 0px #1589ee; }
+    .waffle-btn { background: none; border: none; cursor: pointer; padding: 4px; display: flex; }
+
+    /* Body: sidebar + main */
+    .body { display: flex; flex: 1; overflow: hidden; background: #f3f3f3; }
+
+    /* Sidebar */
+    .sidebar { width: 288px; min-width: 288px; height: 100%; overflow-y: auto; background: #fff; border-right: 1px solid #aeaeae; padding: 16px 0; flex-shrink: 0; }
+    .sidebar::-webkit-scrollbar { display: none; }
+    .sidebar { -ms-overflow-style: none; scrollbar-width: none; }
+    .sidebar-search { display: flex; align-items: center; gap: 8px; margin: 0 16px 12px; padding: 8px 12px; border: 1px solid #e1e4ea; border-radius: 4px; background: #fff; }
+    .sidebar-search input { flex: 1; border: none; outline: none; font-size: 13px; font-family: inherit; color: #181818; }
+    .sidebar-search input::placeholder { color: #706e6b; }
+    .tree-home { display: block; padding: 8px 14px; font-size: 13px; color: #181818; text-decoration: none; }
+    .tree-home:hover { background: #f3f3f3; }
+    .tree-section { margin-bottom: 4px; }
+    .tree-heading { display: block; padding: 10px 14px 4px; font-size: 11px; font-weight: 600; color: #181818; letter-spacing: 1.2px; text-transform: uppercase; }
+    .tree-item { display: flex; align-items: center; gap: 8px; padding: 8px 14px; font-size: 13px; color: #181818; text-decoration: none; border-left: 4px solid transparent; }
+    .tree-item:hover { background: #f3f3f3; }
+    .tree-item--active { background: #edf1f5; border-left: 4px solid #8595ad; font-weight: 500; }
+
+    /* Main content (conversation) */
+    .main { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; position: relative; border-left: 1px solid #aeaeae; }
+
+    /* Title bar */
+    .title-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid #e5e5e5; flex-shrink: 0; }
+    .title { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: 600; color: #001e5b; }
+    .end-btn { padding: 6px 16px; background: none; border: 1px solid #d8d8d8; border-radius: 4px; font-size: 13px; color: #5c5c5c; cursor: pointer; font-family: inherit; }
+    .end-btn:hover { background: #f3f3f3; }
+
+    /* Thread */
+    .thread { flex: 1; overflow-y: auto; padding: 24px 32px 180px; display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; width: 100%; }
+    .thread::-webkit-scrollbar { display: none; }
+    .thread { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* User bubble */
+    .user-msg { display: flex; justify-content: flex-end; }
+    .user-msg p { max-width: 70%; background: #edf4ff; border-radius: 20px 20px 4px 20px; padding: 12px 18px; font-size: 13px; color: #03234d; line-height: 18px; }
+
+    /* Agent */
+    .agent-hdr { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .agent-name { font-size: 13px; font-weight: 600; color: #03234d; }
+    .agent-msg { display: flex; flex-direction: column; gap: 8px; }
+    .agent-msg p { font-size: 14px; color: #001e5b; line-height: 19px; }
+
+    /* Search rows */
+    .search-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e2e2e; padding-left: 12px; }
+    .search-count { margin-left: auto; color: #5c5c5c; font-size: 12px; }
+
+    /* Features */
+    .features-title { font-size: 15px; font-weight: 700; color: #03234d; margin: 8px 0 4px; }
+    .feat { margin: 6px 0; }
+    .feat-name { font-size: 14px; color: #2e2e2e; }
+    .feat-desc { font-size: 13px; color: #5c5c5c; margin-top: 2px; }
+
+    /* Input area */
+    .input-area { position: absolute; bottom: 0; left: 0; right: 0; padding: 0 32px 12px; max-width: 800px; margin: 0 auto; }
+    .input-gradient { height: 60px; background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); pointer-events: none; }
+    .input-box { background: #fff; border: 1px solid #5c5c5c; border-radius: 8px; overflow: hidden; }
+    .input-text { width: 100%; padding: 12px 16px; background: #fff; border: none; outline: none; font-size: 14px; font-family: inherit; color: #5c5c5c; min-height: 43px; resize: none; }
+    .input-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; border-top: 1px solid #f3f3f3; }
+    .toolbar-btn { background: none; border: none; cursor: pointer; padding: 4px; color: #706e6b; }
+
+    /* Connections */
+    .connections { display: flex; align-items: center; gap: 8px; padding: 8px 0; font-size: 10px; color: #2e2e2e; }
+    .conn-label { font-weight: 500; }
+    .conn-icon { width: 16px; height: 16px; border-radius: 4px; border: 1px solid #e5e5e5; background: #fff; display: flex; align-items: center; justify-content: center; margin-right: -4px; }
+    .conn-icon svg { width: 12px; height: 12px; }
+    .disclaimer { margin-left: auto; font-size: 10px; color: #5c5c5c; }
+    .fb-link { color: #0176D3; text-decoration: none; font-size: 10px; }
+
+    /* Footer */
+    .footer { display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 16px; background: #f8f8f8; border-top: 1px solid #e5e5e5; flex-shrink: 0; font-size: 12px; color: #5c5c5c; }
+    .footer-nav { display: flex; align-items: center; gap: 12px; }
+    .footer-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; font-size: 12px; color: #0176D3; font-family: inherit; }
+    .footer-btn:disabled { color: #ccc; cursor: default; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <svg width="40" height="28" viewBox="0 0 61 42" xmlns="http://www.w3.org/2000/svg"><path d="M25.5 5.3c2.7-2.8 6.4-4.5 10.5-4.5 5.5 0 10.3 3.1 12.8 7.7 2.2-1 4.6-1.5 7.2-1.5 9.7 0 17.5 7.8 17.5 17.5S65.7 42 56 42c-1.5 0-3-.2-4.4-.6-2.2 3.7-6.2 6.2-10.8 6.2-2.2 0-4.3-.6-6.1-1.6-2.3 4.4-6.9 7.5-12.2 7.5-5.1 0-9.6-2.8-12-7-1.3.4-2.7.6-4.1.6C2.9 47.1-1 43.2-1 38.4c0-3.1 1.6-5.8 4.1-7.4-.6-1.5-1-3.2-1-4.9 0-7.6 6.2-13.8 13.8-13.8 3.2 0 6.1 1.1 8.5 2.9" transform="translate(1 -0.8) scale(0.85)" fill="#0176D3"/></svg>
+      </div>
+      <div class="header-center">
+        <div class="search-bar">
+          <span class="search-scope">All</span>
+          <svg width="14" height="14" viewBox="0 0 16 16" style="margin-left:10px;flex-shrink:0"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+          <input type="text" class="search-input" placeholder="Search Salesforce">
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 16 16"><path fill="#706e6b" d="M13.5 8.5l1.3-1a.5.5 0 00.1-.6l-1.2-2a.5.5 0 00-.5-.3l-1.6.5a5 5 0 00-.9-.5L10.3 3a.5.5 0 00-.5-.4H7.4a.5.5 0 00-.5.4l-.4 1.6a5 5 0 00-.9.5l-1.6-.5a.5.5 0 00-.5.3l-1.2 2a.5.5 0 00.1.6l1.3 1c0 .2 0 .3 0 .5s0 .3 0 .5l-1.3 1a.5.5 0 00-.1.6l1.2 2c.1.2.3.3.5.3l1.6-.5c.3.2.6.4.9.5l.4 1.6c0 .2.3.4.5.4h2.4c.2 0 .5-.2.5-.4l.4-1.6c.3-.1.6-.3.9-.5l1.6.5c.2.1.4 0 .5-.3l1.2-2a.5.5 0 00-.1-.6l-1.3-1c0-.2 0-.3 0-.5s0-.3 0-.5zM8.6 11a2 2 0 110-4 2 2 0 010 4z"/></svg></button>
+        <button class="icon-btn"><svg width="20" height="20" viewBox="0 0 16 16"><path fill="#706e6b" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg></button>
+        <div class="avatar-circle"><svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="9" r="3.5" fill="white"/><path d="M5.5 19.5c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" stroke="white" stroke-width="1.5" fill="none"/></svg></div>
+      </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar-left">
+        <button class="waffle-btn"><svg width="20" height="20" viewBox="0 0 16 16"><circle cx="3" cy="3" r="1.5" fill="#706e6b"/><circle cx="8" cy="3" r="1.5" fill="#706e6b"/><circle cx="13" cy="3" r="1.5" fill="#706e6b"/><circle cx="3" cy="8" r="1.5" fill="#706e6b"/><circle cx="8" cy="8" r="1.5" fill="#706e6b"/><circle cx="13" cy="8" r="1.5" fill="#706e6b"/><circle cx="3" cy="13" r="1.5" fill="#706e6b"/><circle cx="8" cy="13" r="1.5" fill="#706e6b"/><circle cx="13" cy="13" r="1.5" fill="#706e6b"/></svg></button>
+        <span class="navbar-title">Setup</span>
+      </div>
+      <div class="navbar-tabs">
+        <a href="#" class="navbar-tab active">Home</a>
+        <a href="#" class="navbar-tab">Object Manager</a>
+      </div>
+    </nav>
+
+    <!-- Body: Sidebar + Main -->
+    <div class="body">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-search">
+          <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+          <input type="text" placeholder="Quick Find">
+        </div>
+        <a href="#" class="tree-home">Setup Home</a>
+        <div class="tree-section">
+          <span class="tree-heading">ADMINISTRATION</span>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Users</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Data</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Email</a>
+        </div>
+        <div class="tree-section">
+          <span class="tree-heading">PLATFORM TOOLS</span>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Apps</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Feature Settings</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Slack</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Heroku</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> MuleSoft</a>
+          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Einstein</a>
+          <a href="#" class="tree-item tree-item--active">Partner Ecosystem Configuration</a>
+        </div>
+      </aside>
+
+      <!-- MAIN CONVERSATION -->
+      <main class="main">
+        <div class="title-bar">
+          <div class="title">
+            <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+            <span>Configuring Partner Experience</span>
+          </div>
+          <button class="end-btn">End Session</button>
+        </div>
+
+        <div class="thread">
+          <div class="user-msg"><p>Help me set up my Partner Selling Environment and the related features</p></div>
+
+          <div class="agent-msg">
+            <div class="agent-hdr">
+              <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+              <span class="agent-name">Agentforce</span>
+            </div>
+            <p>Let me search for features related to "Partner Selling Environment" in your organization.</p>
+
+            <div style="display:flex;flex-direction:column;gap:4px;padding:8px 0;">
+              <div class="search-row">
+                <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+                <span>Searching 'Partner Cloud' in Salesforce</span>
+                <span class="search-count">14 sources</span>
+              </div>
+              <div class="search-row">
+                <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+                <span>Searching 'Partner Selling' in Salesforce</span>
+                <span class="search-count">12 sources</span>
+              </div>
+            </div>
+
+            <p class="features-title">Features to Set Up</p>
+            <p style="font-size:13px;color:#5c5c5c;margin-bottom:8px;">There are 6 features that are awaiting being set up.</p>
+
+            <div class="feat"><p class="feat-name">Define your Deal Rules</p><p class="feat-desc">These rules determine which leads can be qualified.</p></div>
+            <div class="feat"><p class="feat-name">Setup your loyalty tiers</p><p class="feat-desc">Establish reward levels and perks to incentivize and retain your best customers.</p></div>
+            <div class="feat"><p class="feat-name">Customise your Agentforce</p><p class="feat-desc">Configure your AI agents to best support your partners and team.</p></div>
+            <div class="feat"><p class="feat-name">Create your first training track</p><p class="feat-desc">Build a structured learning path to effectively onboard new team members or upskill your partners.</p></div>
+            <div class="feat"><p class="feat-name">Launch a referral program</p><p class="feat-desc">Design a system of incentives to encourage your existing customers to bring in new business.</p></div>
+            <div class="feat"><p class="feat-name">Set commission rules</p><p class="feat-desc">Define the payout structures, targets, and percentages for your sales team's closed deals.</p></div>
+
+            <p style="margin-top:14px;">I can help you set these up here or you can do them via the Partner Cloud Setup Widget.</p>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="input-area">
+          <div class="input-gradient"></div>
+          <div class="input-box">
+            <textarea class="input-text" placeholder="Follow up..." rows="1"></textarea>
+            <div class="input-toolbar">
+              <div style="display:flex;gap:8px;">
+                <button class="toolbar-btn"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" fill="none" stroke-width="1.2"/><rect x="4" y="4" width="3" height="3" fill="currentColor"/><rect x="9" y="4" width="3" height="3" fill="currentColor"/><rect x="4" y="9" width="3" height="3" fill="currentColor"/></svg></button>
+                <button class="toolbar-btn"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 12l4-10 4 7 3-4 3 7H1z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+              </div>
+              <div></div>
+            </div>
+          </div>
+          <div class="connections">
+            <span class="conn-label">Connections</span>
+            <div class="conn-icon"><svg viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1C6.3 1 5 2.3 5 4v3c0 1.7 1.3 3 3 3s3-1.3 3-3V4c0-1.7-1.3-3-3-3z"/></svg></div>
+            <div class="conn-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="#706e6b"/></svg></div>
+            <div class="conn-icon"><svg viewBox="0 0 16 16"><path fill="#d4a017" d="M8 2l2 4 4 1-3 3 1 4-4-2-4 2 1-4-3-3 4-1z"/></svg></div>
+            <span class="disclaimer">Generative AI can produce inaccurate responses.</span>
+            <a href="#" class="fb-link">Share feedback</a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div>
+        <span>VERSION </span>
+        <strong>V5</strong>
+      </div>
+      <div>Last updated: June 4, 2026</div>
+      <div class="footer-nav">
+        <button class="footer-btn" onclick="window.location.href='screen-3.html'">&#8592; Prev</button>
+        <span>Screen 2 / 8</span>
+        <button class="footer-btn" onclick="window.location.href='screen-5-standalone.html'">Next &#8594;</button>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
