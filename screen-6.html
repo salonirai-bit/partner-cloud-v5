@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sales Home - Connected Seller</title>
+  <link rel="stylesheet" href="v2.css">
+</head>
+<body>
+  <div class="v2-shell">
+    <!-- Side Nav (72px, dark navy) -->
+    <aside class="v2-sidenav">
+      <nav class="sidenav-icons">
+        <button class="sidenav-item" title="Home">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L2 9h2v7h4v-4h4v4h4V9h2L10 2z" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Home</span>
+        </button>
+        <button class="sidenav-item" title="Contacts">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="7" cy="7" r="3" fill="currentColor"/><circle cx="13" cy="7" r="3" fill="currentColor"/><path d="M1 17c0-3 2.5-5 6-5 1.2 0 2.3.3 3 .8.7-.5 1.8-.8 3-.8 3.5 0 6 2 6 5H1z" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Contacts</span>
+        </button>
+        <button class="sidenav-item sidenav-item--active" title="Accounts">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="13" rx="2" fill="currentColor"/><rect x="6" y="2" width="8" height="4" rx="1" fill="currentColor"/><rect x="6" y="9" width="3" height="3" fill="#032e61" opacity="0.3"/><rect x="11" y="9" width="3" height="3" fill="#032e61" opacity="0.3"/><rect x="6" y="13" width="3" height="3" fill="#032e61" opacity="0.3"/><rect x="11" y="13" width="3" height="3" fill="#032e61" opacity="0.3"/></svg>
+          </span>
+          <span class="sidenav-item-label">Accounts</span>
+        </button>
+        <button class="sidenav-item" title="Sales">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 16h2V8H3v8zm4 0h2V4H7v12zm4 0h2V6h-2v10zm4 0h2v-4h-2v4z" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Sales</span>
+        </button>
+        <button class="sidenav-item" title="Marketing">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 8v4l10 4V4L4 8zm12-2v8l2 1V5l-2 1zM2 9h1v2H2V9z" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Marketing</span>
+        </button>
+        <button class="sidenav-item" title="Service">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4C7.2 4 5 6 5 8.5c0 1.5.8 2.8 2 3.7V15l3-2 3 2v-2.8c1.2-.9 2-2.2 2-3.7C15 6 12.8 4 10 4z" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Service</span>
+        </button>
+        <button class="sidenav-item" title="Commerce">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 16a1.5 1.5 0 100 3 1.5 1.5 0 000-3zm8 0a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM3 2l1.5 2h12l-1.5 8H5.5L4 4H2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="sidenav-item-label">Commerce</span>
+        </button>
+        <button class="sidenav-item" title="Gen Canvas">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="6" rx="1" fill="currentColor"/><rect x="11" y="3" width="6" height="6" rx="1" fill="currentColor"/><rect x="3" y="11" width="6" height="6" rx="1" fill="currentColor"/><rect x="11" y="11" width="6" height="6" rx="1" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Gen Canvas</span>
+        </button>
+        <button class="sidenav-item" title="Your Account">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="4" fill="currentColor"/><path d="M3 17c0-3.3 3.1-6 7-6s7 2.7 7 6H3z" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">Your Account</span>
+        </button>
+        <button class="sidenav-item" title="More">
+          <span class="sidenav-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="5" r="2" fill="currentColor"/><circle cx="10" cy="10" r="2" fill="currentColor"/><circle cx="10" cy="15" r="2" fill="currentColor"/></svg>
+          </span>
+          <span class="sidenav-item-label">More</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Main App Area -->
+    <div class="v2-app">
+      <!-- Global Header (64px) -->
+      <header class="global-header">
+        <div class="header-left">
+          <span class="sf-cloud-logo">
+            <svg width="42" height="28" viewBox="0 0 42 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.5 3.5c1.8-1.9 4.3-3 7-3 3.7 0 6.9 2.1 8.5 5.1 1.5-.7 3.1-1 4.8-1C44.3 4.6 49 9.8 49 16.4S44.3 28 37.5 28c-1 0-2-.1-2.9-.4-1.5 2.5-4.2 4.1-7.2 4.1-1.5 0-2.9-.4-4.1-1.1-1.5 3-4.6 5-8.1 5-3.4 0-6.4-1.9-8-4.7-.9.3-1.8.4-2.7.4C1.9 31.3-.7 28.7-.7 25.5c0-2.1 1.1-3.9 2.7-4.9-.4-1-.7-2.1-.7-3.3 0-5.1 4.1-9.2 9.2-9.2 2.1 0 4.1.7 5.7 1.9" transform="translate(1 -0.5) scale(0.82)" fill="#0176D3"/>
+            </svg>
+          </span>
+        </div>
+        <div class="header-center">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+            <input type="text" class="search-input" placeholder="Search...">
+          </div>
+        </div>
+        <div class="header-right">
+          <!-- Agentforce icon -->
+          <button class="header-icon-btn" title="Agentforce"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 2.5a2 2 0 110 4 2 2 0 010-4zm0 11c-2.2 0-4.1-1.1-5.2-2.8.03-1.7 3.5-2.7 5.2-2.7s5.17 1 5.2 2.7A6.5 6.5 0 0110 15.5z"/></svg></button>
+          <!-- Star/favorite with chevron -->
+          <button class="header-icon-btn" title="Favorites"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5L10 14.7l-4.9 2.5.9-5.5-4-3.9L7.5 7z"/></svg></button>
+          <!-- Plus icon -->
+          <button class="header-icon-btn" title="New"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/></svg></button>
+          <!-- Trailhead mountains -->
+          <button class="header-icon-btn" title="Trailhead"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M3 16l4-7 3 4 4-9 4 12H3z"/></svg></button>
+          <!-- Help -->
+          <button class="header-icon-btn" title="Help"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 12.5a1 1 0 110-2 1 1 0 010 2zm1-4.5v.5a1 1 0 11-2 0V10a1 1 0 011-1c.8 0 1.5-.7 1.5-1.5S10.8 6 10 6s-1.5.7-1.5 1.5a1 1 0 11-2 0C6.5 5.6 8.1 4 10 4s3.5 1.6 3.5 3.5c0 1.4-.8 2.6-2 3.1V10z"/></svg></button>
+          <!-- Settings gear -->
+          <button class="header-icon-btn" title="Setup"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M16.9 10.5l1.6-1.2a.6.6 0 00.1-.7l-1.5-2.5a.6.6 0 00-.6-.3l-1.9.6c-.4-.3-.8-.5-1.1-.7l-.5-2a.6.6 0 00-.6-.5h-3a.6.6 0 00-.6.5l-.5 2c-.4.2-.8.4-1.1.7l-1.9-.6a.6.6 0 00-.6.3l-1.5 2.5a.6.6 0 00.1.7l1.6 1.2c0 .3 0 .5 0 .7s0 .4 0 .7l-1.6 1.2a.6.6 0 00-.1.7l1.5 2.5a.6.6 0 00.6.3l1.9-.6c.3.3.7.5 1.1.7l.5 2a.6.6 0 00.6.5h3a.6.6 0 00.6-.5l.5-2c.4-.2.8-.4 1.1-.7l1.9.6a.6.6 0 00.6-.3l1.5-2.5a.6.6 0 00-.1-.7l-1.6-1.2c0-.3 0-.4 0-.7s0-.4 0-.7zM10.5 13.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg></button>
+          <!-- Notification bell -->
+          <button class="header-icon-btn" title="Notifications"><svg width="20" height="20" viewBox="0 0 20 20"><path fill="#706e6b" d="M10 2c-3.3 0-6 2.7-6 6v4l-1.5 2h15L16 12V8c0-3.3-2.7-6-6-6zm0 16c-1.1 0-2-.9-2-2h4c0 1.1-.9 2-2 2z"/></svg></button>
+          <!-- Avatar -->
+          <div class="avatar"><div class="avatar-circle"><svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#032e61"/><circle cx="16" cy="12" r="4.5" fill="white"/><path d="M7 26c0-5 4-9 9-9s9 4 9 9" stroke="white" stroke-width="2" fill="none"/></svg></div></div>
+        </div>
+      </header>
+
+      <!-- Global Navigation Tabs (40px) -->
+      <nav class="global-navigation">
+        <div class="nav-tabs">
+          <a href="#" class="nav-tab active">Home</a>
+          <a href="#" class="nav-tab">Opportunities <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Leads <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Tasks <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Files <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Accounts <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Contacts <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Dashboards <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Reports <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Calendar <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+          <a href="#" class="nav-tab">Accounts <span class="tab-close">&times;</span></a>
+        </div>
+        <button class="edit-btn"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.7 1.3l3 3L5 14H2v-3l9.7-9.7zm-1.4 4.4L4 12v1h1l6.3-6.3-1-1z"/></svg></button>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="v2-main">
+        <!-- Page Header -->
+        <div class="v2-page-header">
+          <div class="v2-page-header-left">
+            <h1>Sales Workspace</h1>
+            <p>Carmen, you have <strong>6 actions</strong> requiring your attention</p>
+          </div>
+          <div class="agent-completed-badge">
+            <span class="dot"></span>
+            Agent Completed: 0000
+          </div>
+        </div>
+
+        <!-- KPI Card -->
+        <div class="kpi-card">
+          <div class="kpi-card-header">
+            <p class="kpi-headline">You're projected to miss your quota by <span class="kpi-danger">$2,500</span> in Q2</p>
+            <button class="header-icon-btn"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.7 1.3l3 3L5 14H2v-3l9.7-9.7z"/></svg></button>
+          </div>
+          <div class="kpi-card-body">
+            <!-- Left: KPI metrics -->
+            <div class="kpi-metrics">
+              <div class="kpi-metric kpi-metric--active">
+                <span class="kpi-metric-label">Quota Attainment</span>
+                <span class="kpi-metric-value">$32k</span>
+              </div>
+              <div class="kpi-metric">
+                <span class="kpi-metric-label">Pipeline Growth</span>
+                <span class="kpi-metric-value">8%</span>
+              </div>
+              <div class="kpi-metric">
+                <span class="kpi-metric-label">Account Health</span>
+                <span class="kpi-metric-value">15%</span>
+              </div>
+              <div class="kpi-metric">
+                <span class="kpi-metric-label">Average CSAT</span>
+                <span class="kpi-metric-value">40%</span>
+              </div>
+            </div>
+
+            <!-- Center: Chart area -->
+            <div class="kpi-chart">
+              <div class="kpi-chart-header">
+                <span class="kpi-chart-title">Quota Attainment</span>
+                <button class="kpi-chart-dropdown"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></button>
+              </div>
+              <div class="kpi-chart-detail">
+                <span class="kpi-chart-value">$32K</span>
+                <span class="kpi-chart-meta"><span class="kpi-danger">75% to target</span> | 15 days left</span>
+              </div>
+              <div class="kpi-chart-graph">
+                <div class="chart-container">
+                  <div class="chart-y-axis">
+                    <span class="chart-y-label">$50k</span>
+                    <span class="chart-y-label">$20k</span>
+                  </div>
+                  <div class="chart-area">
+                    <svg width="100%" height="100%" viewBox="0 0 400 100" preserveAspectRatio="none">
+                      <!-- Grid lines -->
+                      <line x1="0" y1="0" x2="400" y2="0" stroke="#e5e5e5" stroke-width="0.5"/>
+                      <line x1="0" y1="50" x2="400" y2="50" stroke="#e5e5e5" stroke-width="0.5"/>
+                      <line x1="0" y1="100" x2="400" y2="100" stroke="#e5e5e5" stroke-width="0.5"/>
+                      <line x1="133" y1="0" x2="133" y2="100" stroke="#e5e5e5" stroke-width="0.5"/>
+                      <line x1="266" y1="0" x2="266" y2="100" stroke="#e5e5e5" stroke-width="0.5"/>
+                      <!-- Quota reference line (green) -->
+                      <line x1="0" y1="35" x2="400" y2="35" stroke="#2e844a" stroke-width="1.5" stroke-dasharray="4,3"/>
+                      <text x="365" y="30" fill="#2e844a" font-size="10" font-family="sans-serif">Quota</text>
+                      <!-- Actual line (solid blue, April to mid-May) -->
+                      <path d="M0,85 C40,80 80,72 120,65 C160,58 200,48 240,40" stroke="#0176D3" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                      <!-- Fill under actual line -->
+                      <path d="M0,85 C40,80 80,72 120,65 C160,58 200,48 240,40 L240,100 L0,100 Z" fill="rgba(1,118,211,0.06)"/>
+                      <!-- Projected line (dashed, mid-May to June) -->
+                      <path d="M240,40 C280,32 320,26 360,22 L400,18" stroke="#0176D3" stroke-width="2" fill="none" stroke-dasharray="6,4" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <div class="chart-x-axis">
+                    <span class="chart-x-label">April</span>
+                    <span class="chart-x-label">June</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Action card stack -->
+            <div class="kpi-action-stack">
+              <div class="action-card action-card--top">
+                <div class="action-card-header">
+                  <svg class="sparkle-icon" width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+                  <span class="action-title">Take Action</span>
+                  <div class="action-card-pagination">
+                    <button>&lt;</button>
+                    <span>1/4</span>
+                    <button>&gt;</button>
+                  </div>
+                </div>
+                <p class="action-card-text">We found 10 opportunities worth $26,379 from next quarter that have a high likelihood of closing to boost your quota for this quarter.</p>
+                <button class="action-card-btn">Pull Forward Deal</button>
+              </div>
+              <div class="action-card action-card--mid"></div>
+              <div class="action-card action-card--back"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions Table -->
+        <div class="actions-table-card">
+          <div class="actions-table-header">
+            <h2>Actions for you</h2>
+          </div>
+          <table class="actions-table">
+            <thead>
+              <tr>
+                <th class="col-suggestion">Suggestion</th>
+                <th class="col-related">Related</th>
+                <th class="col-agent">Agent</th>
+                <th class="col-action">Your Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-suggestion">
+                  <div class="suggestion-cell">
+                    <div class="suggestion-icon suggestion-icon--blue"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3h8v2H3V3zm0 3h8v2H3V6zm0 3h5v2H3V9z" fill="white"/></svg></div>
+                    <div>
+                      <strong>Follow up with CloudBridge on renewal</strong>
+                      <span class="suggestion-sub">Due in 5 days &bull; $48K ARR</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="col-related"><a href="#">CloudBridge Inc</a></td>
+                <td class="col-agent"><span class="agent-badge"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>Description</span></td>
+                <td class="col-action">
+                  <div class="action-cell">
+                    <button class="gen-btn"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg> Generate</button>
+                    <button class="dismiss-btn">&times;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-suggestion">
+                  <div class="suggestion-cell">
+                    <div class="suggestion-icon suggestion-icon--orange"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2l1.5 3h2.5l-2 2.5.8 3L7 9l-2.8 1.5.8-3-2-2.5h2.5L7 2z" fill="white"/></svg></div>
+                    <div>
+                      <strong>Prep discovery call for NovaStar</strong>
+                      <span class="suggestion-sub">Tomorrow 2pm &bull; First meeting</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="col-related"><a href="#">NovaStar Group</a></td>
+                <td class="col-agent"><span class="agent-badge"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>Description</span></td>
+                <td class="col-action">
+                  <div class="action-cell">
+                    <button class="gen-btn"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg> Generate</button>
+                    <button class="dismiss-btn">&times;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-suggestion">
+                  <div class="suggestion-cell">
+                    <div class="suggestion-icon suggestion-icon--green"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm2.5 5.5H7.5v2h-1v-2h-2v-1h2v-2h1v2h2v1z" fill="white"/></svg></div>
+                    <div>
+                      <strong>Send proposal to PeakReach Digital</strong>
+                      <span class="suggestion-sub">Deal stage: Negotiation &bull; $67K</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="col-related"><a href="#">PeakReach Digital</a></td>
+                <td class="col-agent"><span class="agent-badge"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>Description</span></td>
+                <td class="col-action">
+                  <div class="action-cell">
+                    <button class="gen-btn"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg> Generate</button>
+                    <button class="dismiss-btn">&times;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-suggestion">
+                  <div class="suggestion-cell">
+                    <div class="suggestion-icon suggestion-icon--red"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 2a5 5 0 100 10A5 5 0 007 2zm0 7.5a.75.75 0 110-1.5.75.75 0 010 1.5zm.75-2.5h-1.5V4h1.5v3z" fill="white"/></svg></div>
+                    <div>
+                      <strong>Address churn risk for DataPath</strong>
+                      <span class="suggestion-sub">Health score dropped 20% &bull; $32K ARR</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="col-related"><a href="#">DataPath Partners</a></td>
+                <td class="col-agent"><span class="agent-badge"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>Description</span></td>
+                <td class="col-action">
+                  <div class="action-cell">
+                    <button class="gen-btn"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg> Generate</button>
+                    <button class="dismiss-btn">&times;</button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-suggestion">
+                  <div class="suggestion-cell">
+                    <div class="suggestion-icon suggestion-icon--blue"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 3h8v2H3V3zm0 3h8v2H3V6zm0 3h5v2H3V9z" fill="white"/></svg></div>
+                    <div>
+                      <strong>Update forecast for TechFlow deal</strong>
+                      <span class="suggestion-sub">Close date passed &bull; $120K</span>
+                    </div>
+                  </div>
+                </td>
+                <td class="col-related"><a href="#">TechFlow Solutions</a></td>
+                <td class="col-agent"><span class="agent-badge"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>Description</span></td>
+                <td class="col-action">
+                  <div class="action-cell">
+                    <button class="gen-btn"><svg width="12" height="12" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg> Generate</button>
+                    <button class="dismiss-btn">&times;</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <div class="footer-left">
+        <div class="footer-dropdown">
+          <label class="footer-label">Version</label>
+          <select class="footer-select" onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v3') window.location.href='../v3/index.html'; if(this.value==='v4') window.location.href='../v4/index.html';"><option value="v5" selected>V5 - Enhanced Setup Hub v2</option><option value="v4">V4 - Enhanced Setup Hub</option><option value="v1">V1 - Conversational Setup</option><option value="v2">V2 - Partner Feature Setup Hub</option><option value="v3">V3 - Slack + MCP Assistant</option></select>
+        </div>
+        <div class="footer-dropdown">
+          <label class="footer-label">Journey</label>
+          <select class="footer-select"><option value="setup" selected>Setup Journey</option><option value="30days">30 Days Later</option></select>
+        </div>
+      </div>
+      <div class="footer-center"><span class="footer-updated">Last updated: June 3, 2026</span></div>
+      <div class="footer-right">
+        <div class="footer-nav">
+          <button class="footer-nav-btn" id="prevBtn" disabled title="Previous screen"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.7 3.3L6 8l4.7 4.7-1.4 1.4L3.2 8l6.1-6.1 1.4 1.4z"/></svg><span>Prev</span></button>
+          <span class="footer-screen-indicator">Screen 1 / 10</span>
+          <button class="footer-nav-btn" id="nextBtn" title="Next screen"><span>Next</span><svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M5.3 12.7L10 8 5.3 3.3l1.4-1.4L12.8 8l-6.1 6.1-1.4-1.4z"/></svg></button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const screens = ['screen-3.html','screen-4.html','screen-5.html','screen-7.html','screen-8.html','screen-9.html','screen-6.html','screen-10.html'];
+    let currentScreen = 6;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    function updateNavButtons() {
+      prevBtn.disabled = currentScreen === 0;
+      nextBtn.disabled = currentScreen === screens.length - 1;
+      document.querySelector('.footer-screen-indicator').textContent = `Screen ${currentScreen + 1} / ${screens.length}`;
+    }
+    prevBtn.addEventListener('click', () => { if (currentScreen > 0) { currentScreen--; window.location.href = screens[currentScreen]; }});
+    nextBtn.addEventListener('click', () => { if (currentScreen < screens.length - 1) { currentScreen++; window.location.href = screens[currentScreen]; }});
+    document.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft' && !prevBtn.disabled) prevBtn.click(); else if (e.key === 'ArrowRight' && !nextBtn.disabled) nextBtn.click(); });
+    updateNavButtons();
+  </script>
+</body>
+</html>

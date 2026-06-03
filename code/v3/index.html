@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V3 - Slack Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif; background: #611f69; }
+    .page { display: flex; flex-direction: column; height: 100vh; }
+
+    /* Slack Window Container */
+    .slack-window {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    .slack-frame {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, #611f69 0%, #39063a 100%);
+    }
+
+    /* Top Bar */
+    .top-bar {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .traffic-lights {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .traffic-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .traffic-dot.red { background: #ff5f57; }
+    .traffic-dot.yellow { background: #ffbd2e; }
+    .traffic-dot.green { background: #27c93f; }
+    .nav-arrows {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+    }
+    .nav-arrow {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .nav-arrow:hover { background: rgba(255,255,255,0.1); }
+    .search-bar {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 auto;
+      height: 26px;
+      background: rgba(249,237,255,0.25);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 6px;
+    }
+    .search-bar svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .search-bar span {
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 400;
+    }
+    .help-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid rgba(255,255,255,0.4);
+    }
+
+    /* Main Layout (nav + content) */
+    .slack-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left Nav Bar */
+    .left-nav {
+      width: 76px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .workspace-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #e8912d 0%, #f5c344 100%);
+      margin-bottom: 12px;
+    }
+    .nav-tab {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      gap: 2px;
+    }
+    .nav-tab.active {
+      background: rgba(249,237,255,0.25);
+    }
+    .nav-tab svg {
+      width: 20px;
+      height: 20px;
+    }
+    .nav-tab-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.9);
+      font-weight: 400;
+    }
+    .nav-tab .notif-dot {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #e06c75;
+    }
+    .nav-tab .notif-badge {
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      min-width: 16px;
+      height: 16px;
+      border-radius: 8px;
+      background: #eabdfb;
+      color: #1d1c1d;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+    .nav-bottom {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+    }
+    .compose-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(249,237,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-size: 20px;
+      font-weight: 300;
+    }
+    .profile-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #2eb67d;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      background: linear-gradient(180deg, #f9edff 0%, #ffffff 30%);
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .content-header {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 10px;
+      flex-shrink: 0;
+      border-bottom: 1px solid rgba(94,93,96,0.08);
+    }
+    .content-header h1 {
+      font-size: 18px;
+      font-weight: 900;
+      color: #1d1c1d;
+    }
+    .content-header .date {
+      font-size: 13px;
+      color: #77757a;
+      font-weight: 400;
+    }
+    .content-body {
+      flex: 1;
+      padding: 28px 32px;
+      overflow-y: auto;
+    }
+
+    /* Heading */
+    .today-heading {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 900;
+      color: #1d1c1d;
+      margin-bottom: 28px;
+    }
+
+    /* Organize Section */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .section-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #1d1c1d;
+    }
+    .info-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid #77757a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #77757a;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Task Cards Row */
+    .task-cards {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .task-card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid rgba(94,93,96,0.13);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .task-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1d1c1d;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .task-card-desc {
+      font-size: 13px;
+      font-weight: 400;
+      color: #77757a;
+      line-height: 1.4;
+    }
+
+    /* Bottom Two Columns */
+    .bottom-section {
+      display: flex;
+      gap: 24px;
+    }
+    .action-items-col {
+      flex: 1;
+      max-width: 600px;
+    }
+    .agenda-col {
+      width: 300px;
+      flex-shrink: 0;
+    }
+
+    /* Card Container */
+    .card-container {
+      background: #fff;
+      border: 1px solid rgba(94,93,96,0.13);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .card-header-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .card-header-title {
+      font-size: 18px;
+      font-weight: 900;
+      color: #1d1c1d;
+    }
+    .card-header-title.small {
+      font-size: 15px;
+    }
+    .card-header-subtitle {
+      font-size: 13px;
+      color: #77757a;
+      font-weight: 400;
+    }
+    .card-header-menu {
+      margin-left: auto;
+      cursor: pointer;
+      color: #77757a;
+      font-size: 18px;
+      letter-spacing: 1px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 20px;
+      border-bottom: 1px solid rgba(94,93,96,0.13);
+      margin-bottom: 12px;
+      padding-bottom: 0;
+    }
+    .tab {
+      font-size: 13px;
+      color: #77757a;
+      font-weight: 400;
+      padding-bottom: 8px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+    }
+    .tab.active {
+      color: #1d1c1d;
+      font-weight: 700;
+      border-bottom-color: #1d1c1d;
+    }
+
+    /* Action List Items */
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid rgba(94,93,96,0.13);
+      border-radius: 12px;
+    }
+    .action-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .action-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .action-text {
+      font-size: 13px;
+      font-weight: 400;
+      color: #1d1c1d;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .action-text .mention {
+      color: #1264a3;
+      font-weight: 700;
+    }
+    .action-footer {
+      font-size: 12px;
+      color: #77757a;
+    }
+    .action-footer .channel {
+      color: #77757a;
+    }
+    .action-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .check-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #bbb;
+      font-size: 12px;
+    }
+    .check-btn:hover { border-color: #2eb67d; color: #2eb67d; }
+    .dots-menu {
+      color: #77757a;
+      font-size: 16px;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    /* View More */
+    .view-more {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #1264a3;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .view-more:hover { text-decoration: underline; }
+
+    /* Agenda */
+    .agenda-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .agenda-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 12px;
+      border: 1px solid rgba(94,93,96,0.13);
+      border-radius: 12px;
+      gap: 10px;
+    }
+    .agenda-stripe {
+      width: 6px;
+      height: 36px;
+      border-radius: 3px;
+      background: #1264a3;
+      flex-shrink: 0;
+    }
+    .agenda-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .agenda-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1d1c1d;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .agenda-time {
+      font-size: 12px;
+      color: #77757a;
+    }
+    .agenda-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #fff3cd;
+      color: #856404;
+      white-space: nowrap;
+    }
+    .agenda-meet-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+    .agenda-header-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: auto;
+    }
+
+    /* AI Disclaimer */
+    .ai-disclaimer {
+      text-align: center;
+      font-size: 13px;
+      color: #77757a;
+      margin-top: 24px;
+      padding-bottom: 8px;
+    }
+
+    /* Footer */
+    .v3-footer { display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 20px; background: #1b2a3e; flex-shrink: 0; }
+    .v3-footer-left { display: flex; align-items: center; gap: 16px; }
+    .v3-footer-label { font-size: 11px; font-weight: 500; color: #8899aa; text-transform: uppercase; letter-spacing: 0.5px; }
+    .v3-footer select { height: 28px; padding: 0 28px 0 10px; font-size: 12px; font-weight: 500; color: #fff; background: #2d3f54; border: 1px solid #3d5168; border-radius: 6px; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%238899aa' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; font-family: 'Lato', sans-serif; }
+    .v3-footer select option { background: #1b2a3e; color: #fff; }
+    .v3-footer-center { font-size: 11px; color: #6b7d8e; }
+    .v3-footer-right { display: flex; align-items: center; gap: 12px; }
+    .v3-footer-btn { display: flex; align-items: center; gap: 4px; height: 28px; padding: 0 12px; font-size: 12px; font-weight: 500; color: #fff; background: #2d3f54; border: 1px solid #3d5168; border-radius: 6px; cursor: pointer; font-family: 'Lato', sans-serif; }
+    .v3-footer-btn:hover:not(:disabled) { background: #0176D3; border-color: #0176D3; }
+    .v3-footer-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .v3-footer-indicator { font-size: 11px; color: #8899aa; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Slack Window -->
+    <div class="slack-window">
+      <div class="slack-frame">
+        <!-- Top Bar -->
+        <div class="top-bar">
+          <div class="traffic-lights">
+            <div class="traffic-dot red"></div>
+            <div class="traffic-dot yellow"></div>
+            <div class="traffic-dot green"></div>
+          </div>
+          <div class="nav-arrows">
+            <div class="nav-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="nav-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2L10 7L5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="nav-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.3"/><path d="M7 4V7.5L9 9" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="search-bar">
+            <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="rgba(255,255,255,0.8)" stroke-width="1.5"/><path d="M11 11L14 14" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span>Search Acme Inc</span>
+          </div>
+          <div class="help-btn">?</div>
+        </div>
+
+        <!-- Body: Nav + Content -->
+        <div class="slack-body">
+          <!-- Left Nav -->
+          <div class="left-nav">
+            <div class="workspace-icon"></div>
+
+            <!-- Today Tab (active) -->
+            <div class="nav-tab active">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M3 8L10 2L17 8V17C17 17.55 16.55 18 16 18H4C3.45 18 3 17.55 3 17V8Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 18V11H12V18" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="nav-tab-label">Today</span>
+            </div>
+
+            <!-- Channels Tab -->
+            <div class="nav-tab">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M4 7H16M4 13H16M7 3L5 17M15 3L13 17" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span class="nav-tab-label">Channels</span>
+              <div class="notif-dot"></div>
+            </div>
+
+            <!-- Activity Tab -->
+            <div class="nav-tab">
+              <svg viewBox="0 0 20 20" fill="none"><path d="M15 7C15 4.24 12.76 2 10 2C7.24 2 5 4.24 5 7C5 12 3 14 3 14H17C17 14 15 12 15 7Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.73 17C11.37 17.6 10.74 18 10 18C9.26 18 8.63 17.6 8.27 17" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <span class="nav-tab-label">Activity</span>
+              <div class="notif-badge">1</div>
+            </div>
+
+            <!-- More Tab -->
+            <div class="nav-tab">
+              <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="1.5" fill="white"/><circle cx="5" cy="10" r="1.5" fill="white"/><circle cx="15" cy="10" r="1.5" fill="white"/></svg>
+              <span class="nav-tab-label">More</span>
+            </div>
+
+            <div class="nav-bottom">
+              <div class="compose-btn">+</div>
+              <div class="profile-avatar"></div>
+            </div>
+          </div>
+
+          <!-- Main Content -->
+          <div class="main-content">
+            <div class="content-header">
+              <h1>Today</h1>
+              <span class="date">June 10</span>
+            </div>
+            <div class="content-body">
+              <!-- Heading -->
+              <h2 class="today-heading">Today is the day &#x1F986;</h2>
+
+              <!-- Organize your day section -->
+              <div class="section-header">
+                <div class="section-avatar" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);"></div>
+                <span class="section-title">Organize your day</span>
+                <div class="info-icon">i</div>
+              </div>
+
+              <div class="task-cards">
+                <div class="task-card">
+                  <div class="task-card-title">Your Admin has asked you to complete the Partner Ecosystem Setup</div>
+                  <div class="task-card-desc">6 features require your input for setup.</div>
+                </div>
+                <div class="task-card">
+                  <div class="task-card-title">Summarize team collaboration challenges</div>
+                  <div class="task-card-desc">What should be prioritized for the Today pro...</div>
+                </div>
+                <div class="task-card">
+                  <div class="task-card-title">Explain component flexibility rules and functionality</div>
+                  <div class="task-card-desc">What should be prioritized for the Today pro...</div>
+                </div>
+              </div>
+
+              <!-- Bottom Section: Action Items + Agenda -->
+              <div class="bottom-section">
+                <!-- Action Items -->
+                <div class="action-items-col">
+                  <div class="card-container">
+                    <div class="card-header">
+                      <div class="card-header-icon">&#x1F4AC;</div>
+                      <span class="card-header-title">Action Items</span>
+                      <span class="card-header-menu">&#x22EF;</span>
+                    </div>
+                    <div class="tabs">
+                      <div class="tab active">Replies needed 4</div>
+                      <div class="tab">Recently saved 15</div>
+                    </div>
+                    <div class="action-list">
+                      <!-- Item 1 -->
+                      <div class="action-item">
+                        <div class="action-avatar" style="background: #e06c75;"></div>
+                        <div class="action-content">
+                          <div class="action-text">Provide <span class="mention">@Geeta Joshi</span> with a status on user stories and any engineering support needed</div>
+                          <div class="action-footer"><span class="channel">#engineering-plan</span> &middot; 9:18 AM</div>
+                        </div>
+                        <div class="action-actions">
+                          <div class="check-btn">&#x2713;</div>
+                          <span class="dots-menu">&#x22EF;</span>
+                        </div>
+                      </div>
+                      <!-- Item 2 -->
+                      <div class="action-item">
+                        <div class="action-avatar" style="background: #e06c75;"></div>
+                        <div class="action-content">
+                          <div class="action-text">Provide <span class="mention">@Geeta Joshi</span> with employee status report</div>
+                          <div class="action-footer"><span class="channel">#team-hercules</span> &middot; 9:18 AM</div>
+                        </div>
+                        <div class="action-actions">
+                          <div class="check-btn">&#x2713;</div>
+                          <span class="dots-menu">&#x22EF;</span>
+                        </div>
+                      </div>
+                      <!-- Item 3 -->
+                      <div class="action-item">
+                        <div class="action-avatar" style="background: #e06c75;"></div>
+                        <div class="action-content">
+                          <div class="action-text">Provide <span class="mention">@Geeta Joshi</span> with a status on user stories and any engineering support needed</div>
+                          <div class="action-footer"><span class="channel">#channel-name</span> &middot; 9:18 AM</div>
+                        </div>
+                        <div class="action-actions">
+                          <div class="check-btn">&#x2713;</div>
+                          <span class="dots-menu">&#x22EF;</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="view-more">View 4 more</div>
+                  </div>
+                </div>
+
+                <!-- Agenda -->
+                <div class="agenda-col">
+                  <div class="card-container">
+                    <div class="card-header">
+                      <div class="card-header-icon">&#x1F5D3;</div>
+                      <span class="card-header-title small">Agenda</span>
+                      <span class="card-header-subtitle">15 meetings</span>
+                      <div class="agenda-header-icons">
+                        <span class="dots-menu">&#x22EF;</span>
+                      </div>
+                    </div>
+                    <div class="agenda-list">
+                      <!-- Meeting 1 -->
+                      <div class="agenda-item">
+                        <div class="agenda-stripe"></div>
+                        <div class="agenda-info">
+                          <div class="agenda-title">Monthly VC Revi...</div>
+                          <div class="agenda-time">9:30am</div>
+                        </div>
+                        <span class="agenda-tag">In 10m</span>
+                        <svg class="agenda-meet-icon" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="12" height="12" rx="2" fill="#34a853"/><path d="M13 8L18 5V15L13 12V8Z" fill="#34a853"/><rect x="1" y="4" width="12" height="12" rx="2" stroke="#188038" stroke-width="0.5"/></svg>
+                      </div>
+                      <!-- Meeting 2 -->
+                      <div class="agenda-item">
+                        <div class="agenda-stripe"></div>
+                        <div class="agenda-info">
+                          <div class="agenda-title">Team Planning</div>
+                          <div class="agenda-time">4:30pm</div>
+                        </div>
+                        <svg class="agenda-meet-icon" viewBox="0 0 20 20" fill="none"><rect x="1" y="4" width="12" height="12" rx="2" fill="#34a853"/><path d="M13 8L18 5V15L13 12V8Z" fill="#34a853"/><rect x="1" y="4" width="12" height="12" rx="2" stroke="#188038" stroke-width="0.5"/></svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Disclaimer -->
+              <div class="ai-disclaimer">AI-generated answers may be inaccurate.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="v3-footer">
+      <div class="v3-footer-left">
+        <span class="v3-footer-label">Version</span>
+        <select onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v4') window.location.href='../v4/index.html'; if(this.value==='v5') window.location.href='../v5/index.html';">
+          <option value="v3" selected>V3 - Slack + MCP Assistant</option>
+          <option value="v1">V1 - Conversational Setup</option>
+          <option value="v2">V2 - Partner Feature Setup Hub</option><option value="v4">V4 - Enhanced Setup Hub</option><option value="v5">V5 - Enhanced Setup Hub v2</option>
+        </select>
+        <span class="v3-footer-label">Journey</span>
+        <select><option selected>Slack to Salesforce</option></select>
+      </div>
+      <div class="v3-footer-center">1 / 14</div>
+      <div class="v3-footer-right">
+        <button class="v3-footer-btn" disabled>&#8592; Prev</button>
+        <span class="v3-footer-indicator">1 / 14</span>
+        <button class="v3-footer-btn" onclick="window.location.href='screen-2.html'">Next &#8594;</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('keydown', e => {
+      const screens = ['index.html','screen-2.html','screen-3.html','screen-4.html','screen-5.html','screen-6.html','screen-7.html','screen-8.html','screen-9.html','screen-10.html','screen-11.html','screen-12.html','screen-13.html','screen-14.html'];
+      if (e.key === 'ArrowRight') window.location.href = 'screen-2.html';
+    });
+  </script>
+</body>
+</html>

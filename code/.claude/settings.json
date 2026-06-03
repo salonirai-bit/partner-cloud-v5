@@ -1,0 +1,5 @@
+{
+  "enabledPlugins": {
+    "design-quality-experiences@salesforce-native-ai-stack": true
+  }
+}
