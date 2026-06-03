@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask: Partner Cloud Setup - Features Discovery</title>
+  <link rel="stylesheet" href="v2.css">
+  <link rel="stylesheet" href="screen-3-updated.css">
+  <style>
+    /* Conversation panel styles */
+    .convo-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      overflow: hidden;
+      position: relative;
+      border-left: 1px solid #aeaeae;
+    }
+    .convo-title-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      border-bottom: 1px solid #e5e5e5;
+      flex-shrink: 0;
+      background: #ffffff;
+    }
+    .convo-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #001e5b;
+    }
+    .end-session-btn {
+      padding: 6px 16px;
+      background: none;
+      border: 1px solid #d8d8d8;
+      border-radius: 4px;
+      font-size: 13px;
+      color: #5c5c5c;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .end-session-btn:hover { background: #f3f3f3; }
+    .convo-thread {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 32px 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .convo-thread::-webkit-scrollbar { display: none; }
+    .convo-thread { -ms-overflow-style: none; scrollbar-width: none; }
+
+    /* User bubble */
+    .user-bubble { display: flex; justify-content: flex-end; }
+    .user-bubble p { max-width: 70%; background: #edf4ff; border-radius: 20px 20px 4px 20px; padding: 12px 18px; font-size: 13px; color: #03234d; line-height: 18px; margin: 0; }
+
+    /* Agent response */
+    .agent-response { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .agent-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .agent-header .agent-name { font-size: 13px; font-weight: 600; color: #03234d; }
+    .agent-response p { font-size: 14px; color: #001e5b; line-height: 19px; margin: 0; }
+
+    /* Search status */
+    .search-status { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #2e2e2e; line-height: 17px; padding-left: 12px; }
+    .search-status svg { flex-shrink: 0; }
+    .search-status-count { margin-left: auto; color: #5c5c5c; font-size: 12px; }
+
+    /* Features */
+    .features-heading { font-size: 15px; font-weight: 700; color: #03234d; margin: 8px 0 4px; }
+    .feature-item { margin: 6px 0; }
+    .feature-item .feature-name { font-size: 14px; color: #2e2e2e; margin: 0; }
+    .feature-item .feature-desc { font-size: 13px; color: #5c5c5c; margin: 2px 0 0; }
+
+    /* Input area */
+    .convo-input-area {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 0 32px 12px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .convo-input-gradient {
+      height: 60px;
+      background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+      pointer-events: none;
+    }
+    .convo-input-box {
+      background: #ffffff;
+      border: 1px solid #5c5c5c;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .convo-input-text {
+      width: 100%;
+      padding: 12px 16px;
+      background: #ffffff;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: inherit;
+      color: #5c5c5c;
+      min-height: 43px;
+      resize: none;
+    }
+    .convo-input-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      background: #ffffff;
+      border-top: 1px solid #f3f3f3;
+    }
+    .input-action-btn { background: none; border: none; cursor: pointer; padding: 4px; color: #706e6b; }
+    .input-action-btn:hover { color: #181818; }
+
+    /* Connections bar */
+    .convo-connections-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      font-size: 10px;
+      color: #2e2e2e;
+    }
+    .connections-label { font-weight: 500; }
+    .connection-icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid #e5e5e5;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: -4px;
+    }
+    .connection-icon svg { width: 12px; height: 12px; }
+    .convo-disclaimer { margin-left: auto; font-size: 10px; color: #5c5c5c; }
+    .feedback-link { color: #0176D3; text-decoration: none; font-size: 10px; }
+
+    /* Animations */
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
+    .animate-in { animation: fadeSlideUp 0.5s ease forwards; }
+    .thinking-dots { display: inline-flex; gap: 4px; padding: 8px 0; }
+    .thinking-dots span { width: 8px; height: 8px; background: #0176D3; border-radius: 50%; display: inline-block; animation: bounceDot 1.4s infinite ease-in-out both; }
+    .thinking-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .thinking-dots span:nth-child(2) { animation-delay: -0.16s; }
+    .thinking-dots span:nth-child(3) { animation-delay: 0s; }
+    .thinking-dots-container { animation: fadeSlideUp 0.3s ease forwards; }
+    .thinking-dots-container.hide { display: none; }
+    .agent-content { opacity: 0; animation: fadeSlideUp 0.5s ease forwards; animation-delay: 2.2s; }
+  </style>
+</head>
+<body>
+  <div class="setup-shell">
+    <!-- Setup Masthead / Header -->
+    <header class="setup-masthead">
+      <div class="setup-masthead-left">
+        <svg width="40" height="28" viewBox="0 0 61 42" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.5 5.3c2.7-2.8 6.4-4.5 10.5-4.5 5.5 0 10.3 3.1 12.8 7.7 2.2-1 4.6-1.5 7.2-1.5 9.7 0 17.5 7.8 17.5 17.5S65.7 42 56 42c-1.5 0-3-.2-4.4-.6-2.2 3.7-6.2 6.2-10.8 6.2-2.2 0-4.3-.6-6.1-1.6-2.3 4.4-6.9 7.5-12.2 7.5-5.1 0-9.6-2.8-12-7-1.3.4-2.7.6-4.1.6C2.9 47.1-1 43.2-1 38.4c0-3.1 1.6-5.8 4.1-7.4-.6-1.5-1-3.2-1-4.9 0-7.6 6.2-13.8 13.8-13.8 3.2 0 6.1 1.1 8.5 2.9" transform="translate(1 -0.8) scale(0.85)" fill="#0176D3"/>
+        </svg>
+      </div>
+      <div class="setup-masthead-center">
+        <div class="setup-search-bar">
+          <span class="setup-search-scope">All</span>
+          <span class="setup-search-divider"></span>
+          <svg class="setup-search-icon" width="14" height="14" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+          <input type="text" class="setup-search-input" placeholder="Search Salesforce">
+        </div>
+      </div>
+      <div class="setup-masthead-right">
+        <button class="header-icon-btn"><svg width="20" height="20" viewBox="0 0 16 16"><path fill="#706e6b" d="M13.5 8.5l1.3-1a.5.5 0 00.1-.6l-1.2-2a.5.5 0 00-.5-.3l-1.6.5a5 5 0 00-.9-.5L10.3 3a.5.5 0 00-.5-.4H7.4a.5.5 0 00-.5.4l-.4 1.6a5 5 0 00-.9.5l-1.6-.5a.5.5 0 00-.5.3l-1.2 2a.5.5 0 00.1.6l1.3 1c0 .2 0 .3 0 .5s0 .3 0 .5l-1.3 1a.5.5 0 00-.1.6l1.2 2c.1.2.3.3.5.3l1.6-.5c.3.2.6.4.9.5l.4 1.6c0 .2.3.4.5.4h2.4c.2 0 .5-.2.5-.4l.4-1.6c.3-.1.6-.3.9-.5l1.6.5c.2.1.4 0 .5-.3l1.2-2a.5.5 0 00-.1-.6l-1.3-1c0-.2 0-.3 0-.5s0-.3 0-.5zM8.6 11a2 2 0 110-4 2 2 0 010 4z"/></svg></button>
+        <button class="header-icon-btn"><svg width="20" height="20" viewBox="0 0 16 16"><path fill="#706e6b" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg></button>
+        <button class="header-icon-btn"><svg width="20" height="20" viewBox="0 0 16 16"><path fill="#706e6b" d="M8 1C6.3 1 5 2.3 5 4v3c0 1.7 1.3 3 3 3s3-1.3 3-3V4c0-1.7-1.3-3-3-3zm5 6h-.5c0 2.5-2 4.5-4.5 4.5S3.5 9.5 3.5 7H3c0 2.8 2.1 5.1 5 5.4V14H6v1h4v-1H8v-1.6c2.9-.3 5-2.6 5-5.4z"/></svg></button>
+        <div class="avatar"><div class="avatar-circle"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#032e61"/><circle cx="12" cy="9" r="3.5" fill="white"/><path d="M5.5 19.5c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" stroke="white" stroke-width="1.5" fill="none"/></svg></div></div>
+      </div>
+    </header>
+
+    <!-- Setup Nav Bar -->
+    <nav class="setup-navbar">
+      <div class="setup-navbar-left">
+        <button class="setup-waffle-btn">
+          <svg width="20" height="20" viewBox="0 0 16 16"><circle cx="3" cy="3" r="1.5" fill="#706e6b"/><circle cx="8" cy="3" r="1.5" fill="#706e6b"/><circle cx="13" cy="3" r="1.5" fill="#706e6b"/><circle cx="3" cy="8" r="1.5" fill="#706e6b"/><circle cx="8" cy="8" r="1.5" fill="#706e6b"/><circle cx="13" cy="8" r="1.5" fill="#706e6b"/><circle cx="3" cy="13" r="1.5" fill="#706e6b"/><circle cx="8" cy="13" r="1.5" fill="#706e6b"/><circle cx="13" cy="13" r="1.5" fill="#706e6b"/></svg>
+        </button>
+        <span class="setup-navbar-title">Setup</span>
+      </div>
+      <div class="setup-navbar-tabs">
+        <a href="#" class="setup-navbar-tab active">Home <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+        <a href="#" class="setup-navbar-tab">Object Manager</a>
+      </div>
+    </nav>
+
+    <!-- Setup Body: Sidebar + Main -->
+    <div class="setup-body">
+      <!-- Left Sidebar (Setup Tree) -->
+      <aside class="setup-sidebar">
+        <div class="setup-sidebar-search">
+          <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+          <input type="text" class="setup-sidebar-input" placeholder="Quick Find">
+        </div>
+        <a href="#" class="setup-tree-home">Setup Home</a>
+        <div class="setup-tree-section">
+          <span class="setup-tree-heading">ADMINISTRATION</span>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Users</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Data</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Email</a>
+        </div>
+        <div class="setup-tree-section">
+          <span class="setup-tree-heading">PLATFORM TOOLS</span>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Apps</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Feature Settings</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Slack</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Heroku</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> MuleSoft</a>
+          <a href="#" class="setup-tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Einstein</a>
+          <a href="#" class="setup-tree-item setup-tree-item--active">Partner Ecosystem Configuration</a>
+        </div>
+      </aside>
+
+      <!-- Main Content: Conversation -->
+      <main class="convo-panel">
+        <div class="convo-title-bar">
+          <div class="convo-title">
+            <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+            <span>Configuring Partner Experience</span>
+          </div>
+          <button class="end-session-btn">End Session</button>
+        </div>
+
+        <div class="convo-thread">
+          <!-- User message -->
+          <div class="user-bubble animate-in">
+            <p>Help me set up my Partner Selling Environment and the related features</p>
+          </div>
+
+          <!-- Thinking dots (visible briefly) -->
+          <div class="thinking-dots-container" id="thinkingDots">
+            <div class="agent-header">
+              <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+              <span class="agent-name">Agentforce</span>
+            </div>
+            <div class="thinking-dots"><span></span><span></span><span></span></div>
+          </div>
+
+          <!-- Agent response (fades in after thinking) -->
+          <div class="agent-response agent-content" id="agentResponse">
+            <div class="agent-header">
+              <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+              <span class="agent-name">Agentforce</span>
+            </div>
+            <p>Let me search for features related to "Partner Selling Environment" in your organization.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 0; padding: 8px 0;">
+              <div class="search-status">
+                <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+                <span>Searching 'Partner Cloud' in Salesforce</span>
+                <span class="search-status-count">14 sources</span>
+              </div>
+              <div class="search-status">
+                <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
+                <span>Searching 'Partner Selling' in Salesforce</span>
+                <span class="search-status-count">12 sources</span>
+              </div>
+            </div>
+
+            <p class="features-heading">Features to Set Up</p>
+            <p style="font-size: 13px; color: #5c5c5c; margin-bottom: 8px;">There are 6 features that are awaiting being set up.</p>
+
+            <div class="feature-item">
+              <p class="feature-name">Define your Deal Rules</p>
+              <p class="feature-desc">These rules determine which leads can be qualified.</p>
+            </div>
+            <div class="feature-item">
+              <p class="feature-name">Setup your loyalty tiers</p>
+              <p class="feature-desc">Establish reward levels and perks to incentivize and retain your best customers.</p>
+            </div>
+            <div class="feature-item">
+              <p class="feature-name">Customise your Agentforce</p>
+              <p class="feature-desc">Configure your AI agents to best support your partners and team.</p>
+            </div>
+            <div class="feature-item">
+              <p class="feature-name">Create your first training track</p>
+              <p class="feature-desc">Build a structured learning path to effectively onboard new team members or upskill your partners.</p>
+            </div>
+            <div class="feature-item">
+              <p class="feature-name">Launch a referral program</p>
+              <p class="feature-desc">Design a system of incentives to encourage your existing customers to bring in new business.</p>
+            </div>
+            <div class="feature-item">
+              <p class="feature-name">Set commission rules</p>
+              <p class="feature-desc">Define the payout structures, targets, and percentages for your sales team's closed deals.</p>
+            </div>
+
+            <p style="margin-top: 14px;">I can help you set these up here or you can do them via the Partner Cloud Setup Widget.</p>
+          </div>
+        </div>
+
+        <!-- Input area -->
+        <div class="convo-input-area">
+          <div class="convo-input-gradient"></div>
+          <div class="convo-input-box">
+            <textarea class="convo-input-text" placeholder="Follow up..." rows="1"></textarea>
+            <div class="convo-input-toolbar">
+              <div style="display: flex; gap: 8px;">
+                <button class="input-action-btn"><svg width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" fill="none" stroke-width="1.2"/><rect x="4" y="4" width="3" height="3" fill="currentColor"/><rect x="9" y="4" width="3" height="3" fill="currentColor"/><rect x="4" y="9" width="3" height="3" fill="currentColor"/></svg></button>
+                <button class="input-action-btn"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M1 12l4-10 4 7 3-4 3 7H1z" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></button>
+              </div>
+              <div></div>
+            </div>
+          </div>
+          <div class="convo-connections-bar">
+            <span class="connections-label">Connections</span>
+            <div class="connection-icon"><svg viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1C6.3 1 5 2.3 5 4v3c0 1.7 1.3 3 3 3s3-1.3 3-3V4c0-1.7-1.3-3-3-3z"/></svg></div>
+            <div class="connection-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" fill="#706e6b"/></svg></div>
+            <div class="connection-icon"><svg viewBox="0 0 16 16"><path fill="#d4a017" d="M8 2l2 4 4 1-3 3 1 4-4-2-4 2 1-4-3-3 4-1z"/></svg></div>
+            <span class="convo-disclaimer">Generative AI can produce inaccurate responses. Review responses carefully.</span>
+            <a href="#" class="feedback-link">Share feedback</a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <div class="footer-left">
+        <div class="footer-dropdown">
+          <label class="footer-label">Version</label>
+          <select class="footer-select" onchange="if(this.value==='v1') window.location.href='v1/index.html'; if(this.value==='v2') window.location.href='v2/index.html'; if(this.value==='v3') window.location.href='v3/index.html'; if(this.value==='v4') window.location.href='v4/index.html';"><option value="v5" selected>V5 - Enhanced Setup Hub v2</option><option value="v4">V4 - Enhanced Setup Hub</option><option value="v1">V1 - Conversational Setup</option><option value="v2">V2 - Partner Feature Setup Hub</option><option value="v3">V3 - Slack + MCP Assistant</option></select>
+        </div>
+        <div class="footer-dropdown">
+          <label class="footer-label">Journey</label>
+          <select class="footer-select"><option value="setup" selected>Setup Journey</option><option value="30days">30 Days Later</option></select>
+        </div>
+      </div>
+      <div class="footer-center"><span class="footer-updated">Last updated: June 4, 2026</span></div>
+      <div class="footer-right">
+        <div class="footer-nav">
+          <button class="footer-nav-btn" id="prevBtn" title="Previous screen"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.7 3.3L6 8l4.7 4.7-1.4 1.4L3.2 8l6.1-6.1 1.4 1.4z"/></svg><span>Prev</span></button>
+          <span class="footer-screen-indicator">Screen 2 / 8</span>
+          <button class="footer-nav-btn" id="nextBtn" title="Next screen"><span>Next</span><svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M5.3 12.7L10 8 5.3 3.3l1.4-1.4L12.8 8l-6.1 6.1-1.4-1.4z"/></svg></button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const screens = ['screen-3.html','screen-4.html','screen-5.html','screen-7.html','screen-8.html','screen-9.html','screen-6.html','screen-10.html'];
+    let currentScreen = 1;
+    document.getElementById('prevBtn').addEventListener('click', () => { if (currentScreen > 0) { currentScreen--; window.location.href = screens[currentScreen]; }});
+    document.getElementById('nextBtn').addEventListener('click', () => { if (currentScreen < screens.length - 1) { currentScreen++; window.location.href = screens[currentScreen]; }});
+    // Hide thinking dots after delay
+    setTimeout(() => { document.getElementById('thinkingDots').classList.add('hide'); }, 2000);
+  </script>
+</body>
+</html>
