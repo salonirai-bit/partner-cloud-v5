@@ -1,0 +1,282 @@
+/* Additional styles for Figma-aligned screens 3-5 */
+/* To be used alongside v2.css */
+
+/* Hide scrollbars while maintaining scroll functionality */
+.convo-thread::-webkit-scrollbar,
+.setup-sidebar::-webkit-scrollbar,
+.s4-chat-thread::-webkit-scrollbar,
+.s4-checklist-panel::-webkit-scrollbar {
+  display: none;
+}
+
+.convo-thread,
+.setup-sidebar,
+.s4-chat-thread,
+.s4-checklist-panel {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Sparkle loading animation */
+@keyframes sparkle-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.sparkle-set {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sparkle-dot {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: sparkle-pulse 1.4s ease-in-out infinite;
+}
+
+.sparkle-dot:nth-child(1) { animation-delay: 0s; }
+.sparkle-dot:nth-child(2) { animation-delay: 0.2s; }
+.sparkle-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* Agent response with search status */
+.agent-search-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #2e2e2e;
+  line-height: 17px;
+  margin: 4px 0;
+}
+
+.agent-search-status svg {
+  flex-shrink: 0;
+}
+
+.agent-search-count {
+  color: #5c5c5c;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+/* Connections bar styling */
+.connections-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 24px;
+  font-size: 10px;
+  color: #2e2e2e;
+  border-top: 1px solid #f0f0f0;
+  background: #ffffff;
+}
+
+.connections-label {
+  font-weight: 500;
+}
+
+.connection-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid #e5e5e5;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -4px;
+}
+
+.connection-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+.connections-more {
+  color: #0176D3;
+  text-decoration: none;
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+.connections-disclaimer {
+  margin-left: auto;
+  font-size: 10px;
+  color: #5c5c5c;
+}
+
+/* Input area with modern styling */
+.modern-input-area {
+  padding: 12px 24px 12px;
+  border-top: 1px solid #e5e5e5;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modern-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modern-input-box {
+  background: #ffffff;
+  border: 1px solid #5c5c5c;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.modern-input-text-area {
+  padding: 12px 16px;
+  background: #ffffff;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: var(--v2-font);
+  color: #5c5c5c;
+  min-height: 43px;
+  resize: none;
+}
+
+.modern-input-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #ffffff;
+  border-top: 1px solid #f3f3f3;
+}
+
+.modern-input-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modern-input-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #706e6b;
+}
+
+.modern-input-btn:hover {
+  color: #181818;
+}
+
+/* Title bar with sparkle icon */
+.convo-title-bar-modern {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-bottom: 1px solid #e5e5e5;
+  background: #ffffff;
+}
+
+.convo-title-modern {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #001e5b;
+}
+
+.convo-title-modern svg {
+  width: 14px;
+  height: 14px;
+}
+
+.end-session-btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #0176D3;
+  cursor: pointer;
+  font-family: var(--v2-font);
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+.end-session-btn:hover {
+  background: #f3f3f3;
+}
+
+/* Agent message bubble */
+.agent-message-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 800px;
+}
+
+.agent-header-modern {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.agent-avatar-sparkle {
+  width: 16px;
+  height: 16px;
+}
+
+.agent-name-modern {
+  font-size: 13px;
+  font-weight: 600;
+  color: #03234d;
+}
+
+.agent-text-modern {
+  font-size: 14px;
+  color: #001e5b;
+  line-height: 19px;
+  margin: 0;
+}
+
+/* User message bubble */
+.user-message-bubble {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.user-message-content {
+  max-width: 70%;
+  background: #edf4ff;
+  border-radius: 20px 20px 4px 20px;
+  padding: 12px 18px;
+  font-size: 13px;
+  color: #03234d;
+  line-height: 18px;
+}
+
+/* Fade-in gradient at bottom */
+.input-footer-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 150px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 16.83%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-footer-content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 8px;
+}
