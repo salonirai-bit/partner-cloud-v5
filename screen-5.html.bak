@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ask: Partner Cloud Setup - Loyalty Analysis</title>
-  <link rel="stylesheet" href="v2.css">
+  <link rel="stylesheet" href="v2.css?v=1780526681">
   <link rel="stylesheet" href="screen-3-updated.css">
   <style>
     /* App container */
@@ -131,7 +131,7 @@
     </nav>
 
     <!-- Main content with sidebar -->
-    <div style="display: flex; flex: 1; overflow: hidden; background: #f3f3f3; min-height: 0;">
+    <div style="display: flex; flex: 1; overflow: hidden; background: #f3f3f3;">
       <!-- Left Sidebar -->
       <aside class="setup-sidebar">
         <div class="setup-sidebar-search">

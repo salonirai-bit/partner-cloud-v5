@@ -2,10 +2,249 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=screen-3.html">
-  <title>V5 - Redirecting...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner Cloud - All Versions</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 60px;
+      max-width: 1100px;
+      width: 100%;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: #03234d;
+      margin: 0 0 16px;
+      text-align: center;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .subtitle {
+      font-size: 20px;
+      color: #5c5c5c;
+      text-align: center;
+      margin: 0 0 50px;
+    }
+    .versions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .version-card {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border: 3px solid transparent;
+      border-radius: 16px;
+      padding: 32px;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .version-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .version-card:hover::before {
+      transform: scaleX(1);
+    }
+    .version-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 48px rgba(102, 126, 234, 0.3);
+      border-color: #667eea;
+      background: white;
+    }
+    .version-number {
+      font-size: 16px;
+      font-weight: 700;
+      color: #667eea;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .version-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #03234d;
+      margin: 0;
+    }
+    .version-desc {
+      font-size: 15px;
+      color: #5c5c5c;
+      line-height: 1.6;
+      margin: 0;
+      flex: 1;
+    }
+    .version-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 20px;
+      align-self: flex-start;
+      margin-top: 8px;
+    }
+    .status-latest {
+      background: #e0f2e9;
+      color: #0d9f57;
+    }
+    .status-stable {
+      background: #e3f2fd;
+      color: #0176D3;
+    }
+    .version-card:hover .version-number {
+      color: #764ba2;
+    }
+    .info-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+    }
+    .info-section h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #03234d;
+      margin: 0 0 12px;
+    }
+    .info-section p {
+      font-size: 14px;
+      color: #5c5c5c;
+      line-height: 1.6;
+      margin: 0 0 8px;
+    }
+    .info-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+    }
+    .info-section li {
+      font-size: 14px;
+      color: #5c5c5c;
+      padding: 6px 0;
+      padding-left: 24px;
+      position: relative;
+    }
+    .info-section li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #0d9f57;
+      font-weight: bold;
+    }
+    .repo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: #03234d;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      margin-top: 20px;
+      transition: all 0.2s;
+    }
+    .repo-link:hover {
+      background: #667eea;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    }
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="screen-3.html">screen-3.html</a>...</p>
+  <div class="container">
+    <h1>Partner Cloud Setup Prototypes</h1>
+    <p class="subtitle">AI-Driven Partner Experience Configuration</p>
+
+    <div class="versions-grid">
+      <a href="v1/index.html" class="version-card">
+        <span class="version-number">Version 1</span>
+        <h3 class="version-title">Conversational Setup</h3>
+        <p class="version-desc">AI-guided conversation flow with natural language configuration. Single-page experience with chat interface.</p>
+        <span class="version-status status-stable">✓ Stable</span>
+      </a>
+
+      <a href="v2/index.html" class="version-card">
+        <span class="version-number">Version 2</span>
+        <h3 class="version-title">Feature Setup Hub</h3>
+        <p class="version-desc">Dashboard-style hub showing all Partner Cloud features with guided setup cards and progress tracking.</p>
+        <span class="version-status status-stable">✓ Stable</span>
+      </a>
+
+      <a href="v3/index.html" class="version-card">
+        <span class="version-number">Version 3</span>
+        <h3 class="version-title">Slack + MCP Assistant</h3>
+        <p class="version-desc">Slack-integrated setup experience with MCP (Model Context Protocol) integration for cross-platform configuration.</p>
+        <span class="version-status status-stable">✓ Stable</span>
+      </a>
+
+      <a href="v4/index.html" class="version-card">
+        <span class="version-number">Version 4</span>
+        <h3 class="version-title">Enhanced Setup Hub</h3>
+        <p class="version-desc">Refined hub with improved visual hierarchy, KPI dashboard, and AI-suggested actions based on org data.</p>
+        <span class="version-status status-stable">✓ Stable</span>
+      </a>
+
+      <a href="home.html" class="version-card">
+        <span class="version-number">Version 5</span>
+        <h3 class="version-title">Figma-Aligned UI</h3>
+        <p class="version-desc">Latest design with Salesforce Setup Hub styling, left sidebar navigation, and modern conversation interface matching Figma specs.</p>
+        <span class="version-status status-latest">★ Latest</span>
+      </a>
+    </div>
+
+    <div class="info-section">
+      <h3>✨ What's New in V5</h3>
+      <ul>
+        <li>Setup Hub-style left sidebar navigation</li>
+        <li>Figma design system compliance (colors, typography, spacing)</li>
+        <li>Modern conversation interface with agent search indicators</li>
+        <li>Updated input area with gradient overlay</li>
+        <li>Connection icons and improved footer styling</li>
+        <li>Hidden scrollbars for cleaner appearance</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="https://github.com/salonirai-bit/partner-cloud-v5" class="repo-link" target="_blank">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
 </body>
 </html>

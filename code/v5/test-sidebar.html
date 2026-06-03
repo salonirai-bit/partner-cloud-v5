@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar Test</title>
+  <link rel="stylesheet" href="v2.css">
+  <style>
+    body { margin: 0; padding: 0; }
+    .test-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .test-header {
+      height: 64px;
+      background: #eee;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .test-content {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      background: #f3f3f3;
+    }
+    .test-main {
+      flex: 1;
+      background: white;
+      padding: 20px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <div class="test-header">
+      <h3>Sidebar Test - Should See Sidebar on Left</h3>
+    </div>
+    <div class="test-content">
+      <aside class="setup-sidebar">
+        <div class="setup-sidebar-search">
+          <input type="text" class="setup-sidebar-input" placeholder="Quick Find">
+        </div>
+        <a href="#" class="setup-tree-home">Setup Home</a>
+        <div class="setup-tree-section">
+          <span class="setup-tree-heading">ADMINISTRATION</span>
+          <a href="#" class="setup-tree-item">Users</a>
+          <a href="#" class="setup-tree-item">Data</a>
+        </div>
+        <div class="setup-tree-section">
+          <span class="setup-tree-heading">PLATFORM TOOLS</span>
+          <a href="#" class="setup-tree-item">Apps</a>
+          <a href="#" class="setup-tree-item setup-tree-item--active">Partner Ecosystem Configuration</a>
+        </div>
+      </aside>
+      <div class="test-main">
+        <h1>Main Content Area</h1>
+        <p>If you can see the sidebar on the left, the CSS is working!</p>
+        <p>If you DON'T see it, the CSS file isn't loading or the styles are wrong.</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

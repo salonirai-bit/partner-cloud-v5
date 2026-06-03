@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask: Partner Cloud Configuration - Salesforce</title>
+  <link rel="stylesheet" href="v2.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="screen-3.css">
+  <style>
+    /* Recommendation card styles */
+    .rec-card {
+      background: #ffffff;
+      border: 1px solid #d8d8d8;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 8px 0;
+      max-width: 600px;
+    }
+    .rec-card-header {
+      background: #f8f9fa;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e5e5e5;
+      font-size: 14px;
+      font-weight: 600;
+      color: #03234d;
+    }
+    .rec-card-body {
+      padding: 16px;
+    }
+    .rec-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f3f3f3;
+      font-size: 13px;
+    }
+    .rec-row:last-of-type {
+      border-bottom: none;
+    }
+    .rec-row-label {
+      color: #3e3e3c;
+      font-weight: 500;
+      min-width: 180px;
+    }
+    .rec-row-value {
+      color: #5c5c5c;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .rec-row-value .current {
+      color: #706e6b;
+      text-decoration: line-through;
+    }
+    .rec-row-value .arrow {
+      color: #706e6b;
+    }
+    .rec-row-value .recommended {
+      color: #03234d;
+      font-weight: 600;
+    }
+    .rec-reasoning {
+      margin-top: 12px;
+      padding: 12px;
+      background: #f0f7ff;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #03234d;
+      line-height: 18px;
+    }
+    .rec-card-footer {
+      padding: 12px 16px;
+      border-top: 1px solid #e5e5e5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .rec-warning {
+      font-size: 12px;
+      color: #706e6b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .rec-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .rec-btn-reject {
+      height: 32px;
+      padding: 0 16px;
+      background: #fff;
+      border: 1px solid #d8d8d8;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #3e3e3c;
+      cursor: pointer;
+    }
+    .rec-btn-approve {
+      height: 32px;
+      padding: 0 16px;
+      background: #0176D3;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* Thinking steps completed state */
+    .thinking-completed {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 8px 0;
+    }
+    .thinking-step-done {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #2e844a;
+      line-height: 18px;
+    }
+
+    /* Questions list styling */
+    .agent-questions {
+      padding-left: 4px;
+      margin: 4px 0;
+    }
+    .agent-questions p {
+      font-size: 14px;
+      color: #001e5b;
+      line-height: 22px;
+      margin: 0;
+    }
+
+    /* Success message styling */
+    .success-msg {
+      background: #f0fdf0;
+      border-left: 3px solid #2e844a;
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: #1a5c2c;
+      line-height: 20px;
+    }
+
+    /* Step-based reveal */
+    .convo-step {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      display: none;
+    }
+    .convo-step.step-visible {
+      opacity: 1;
+      transform: translateY(0);
+      display: flex;
+    }
+    /* agent-response is a div not flex by default */
+    .agent-response.convo-step.step-visible {
+      display: block;
+    }
+
+    /* Typing cursor for step 1 */
+    #userTyping {
+      border-right: 2px solid #03234d;
+      animation: cursorBlink 0.8s step-end infinite;
+      min-height: 18px;
+    }
+    #userTyping.done {
+      border-right: none;
+      animation: none;
+    }
+    @keyframes cursorBlink {
+      0%, 100% { border-right-color: #03234d; }
+      50% { border-right-color: transparent; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container app-container--white">
+    <!-- Global Header -->
+    <header class="global-header">
+      <div class="header-left">
+        <div class="sf-logo">
+          <svg viewBox="0 0 61 42" width="61" height="42" xmlns="http://www.w3.org/2000/svg">
+            <path d="M25.5 5.3c2.7-2.8 6.4-4.5 10.5-4.5 5.5 0 10.3 3.1 12.8 7.7 2.2-1 4.6-1.5 7.2-1.5 9.7 0 17.5 7.8 17.5 17.5S65.7 42 56 42c-1.5 0-3-.2-4.4-.6-2.2 3.7-6.2 6.2-10.8 6.2-2.2 0-4.3-.6-6.1-1.6-2.3 4.4-6.9 7.5-12.2 7.5-5.1 0-9.6-2.8-12-7-1.3.4-2.7.6-4.1.6C2.9 47.1-1 43.2-1 38.4c0-3.1 1.6-5.8 4.1-7.4-.6-1.5-1-3.2-1-4.9 0-7.6 6.2-13.8 13.8-13.8 3.2 0 6.1 1.1 8.5 2.9" transform="translate(1 -0.8) scale(0.85)" fill="#00A1E0"/>
+          </svg>
+        </div>
+      </div>
+      <div class="header-center">
+        <div class="search-ask-container">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16">
+              <path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/>
+            </svg>
+            <input type="text" class="search-input" placeholder="Search...">
+          </div>
+          <button class="ask-button">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z" fill="#0176D3"/>
+            </svg>
+            <span>Ask</span>
+          </button>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-icon-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#706e6b" stroke-width="1.5" fill="none"/><circle cx="12" cy="8" r="3" fill="#706e6b"/><path d="M6 18c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#706e6b" stroke-width="1.5" fill="none"/></svg></button>
+        <div class="split-button"><button class="split-btn-main"><svg width="14" height="14" viewBox="0 0 16 16"><path fill="#706e6b" d="M8 1l1.8 4.2L14 6.5l-3 3.2.7 4.8L8 12.3 4.3 14.5l.7-4.8-3-3.2 4.2-1.3L8 1z"/></svg></button><button class="split-btn-dropdown"><svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></button></div>
+        <button class="header-icon-btn"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#706e6b" d="M12 2a1 1 0 011 1v8h8a1 1 0 110 2h-8v8a1 1 0 11-2 0v-8H3a1 1 0 110-2h8V3a1 1 0 011-1z"/></svg></button>
+        <button class="header-icon-btn"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#706e6b" d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm5 14l-2 2-3-3-3 3-2-2 3-3-3-3 2-2 3 3 3-3 2 2-3 3 3 3z"/></svg></button>
+        <button class="header-icon-btn"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#706e6b" d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></button>
+        <button class="header-icon-btn"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#706e6b" d="M20.8 13.2l-1.6-1.2c0-.3.1-.7.1-1s0-.7-.1-1l1.6-1.2c.3-.2.3-.5.2-.8l-1.5-2.6c-.2-.3-.5-.4-.8-.3l-1.9.7c-.5-.4-1.1-.7-1.7-.9L15 3.1c0-.3-.3-.6-.7-.6h-3c-.4 0-.6.3-.7.6l-.3 2c-.6.2-1.2.6-1.7.9l-1.9-.7c-.3-.1-.6 0-.8.3L4.5 8.2c-.2.3-.1.6.2.8l1.6 1.2c0 .3-.1.7-.1 1s0 .7.1 1l-1.6 1.2c-.3.2-.3.5-.2.8l1.5 2.6c.2.3.5.4.8.3l1.9-.7c.5.4 1.1.7 1.7.9l.3 2c0 .3.3.6.7.6h3c.4 0 .6-.3.7-.6l.3-2c.6-.2 1.2-.6 1.7-.9l1.9.7c.3.1.6 0 .8-.3l1.5-2.6c.1-.3 0-.6-.2-.8zM12.5 15c-1.7 0-3-1.3-3-3s1.3-3 3-3 3 1.3 3 3-1.3 3-3 3z"/></svg></button>
+        <button class="header-icon-btn"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#706e6b" d="M12 2C10.3 2 9 3.3 9 5v6c0 1.7 1.3 3 3 3s3-1.3 3-3V5c0-1.7-1.3-3-3-3zm7 9h-1c0 3.5-3 6-6 6s-6-2.5-6-6H5c0 3.9 3.1 7.1 7 7.8V21h-3v1h7v-1h-3v-2.2c3.9-.7 7-3.9 7-7.8z"/></svg></button>
+        <div class="avatar"><div class="avatar-circle"><svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#032e61"/><circle cx="12" cy="9" r="3.5" fill="white"/><path d="M5.5 19.5c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5" stroke="white" stroke-width="1.5" fill="none"/></svg></div></div>
+      </div>
+    </header>
+
+    <!-- Global Navigation -->
+    <nav class="global-navigation">
+      <div class="nav-tabs">
+        <div class="app-name">
+          <button class="waffle-icon"><svg width="20" height="20" viewBox="0 0 20 20"><circle cx="4" cy="4" r="2" fill="#706e6b"/><circle cx="10" cy="4" r="2" fill="#706e6b"/><circle cx="16" cy="4" r="2" fill="#706e6b"/><circle cx="4" cy="10" r="2" fill="#706e6b"/><circle cx="10" cy="10" r="2" fill="#706e6b"/><circle cx="16" cy="10" r="2" fill="#706e6b"/><circle cx="4" cy="16" r="2" fill="#706e6b"/><circle cx="10" cy="16" r="2" fill="#706e6b"/><circle cx="16" cy="16" r="2" fill="#706e6b"/></svg></button>
+          <span class="app-name-text">Sales</span>
+        </div>
+        <a href="#" class="nav-tab">Home</a>
+        <a href="#" class="nav-tab has-dropdown">Accounts <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+        <a href="#" class="nav-tab has-dropdown">Contacts <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+        <a href="#" class="nav-tab has-dropdown">Opportunities <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+        <a href="#" class="nav-tab has-dropdown">Leads <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+        <a href="#" class="nav-tab has-dropdown">Campaigns <svg width="10" height="10" viewBox="0 0 16 16"><path fill="#706e6b" d="M4 6l4 4 4-4"/></svg></a>
+        <a href="#" class="nav-tab active">*Ask: Partner Config <span class="tab-close">&times;</span></a>
+      </div>
+      <button class="edit-btn"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.7 1.3l3 3L5 14H2v-3l9.7-9.7zm-1.4 4.4L4 12v1h1l6.3-6.3-1-1z"/></svg></button>
+    </nav>
+
+    <!-- Conversation Content -->
+    <main class="convo-main">
+      <!-- Title bar -->
+      <div class="convo-title-bar">
+        <div class="convo-title">
+          <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#0176D3" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+          <span>Partner Cloud Configuration</span>
+        </div>
+      </div>
+
+      <!-- Conversation thread — step-based reveal -->
+      <div class="convo-thread" id="convoThread">
+        <!-- Step 1: User question (typing animation) -->
+        <div class="user-bubble convo-step" data-step="1">
+          <p id="userTyping"></p>
+        </div>
+
+        <!-- Step 2: Agent questions -->
+        <div class="agent-response convo-step" data-step="2">
+          <p class="agent-text">I can help with that. Let me look into your Loyalty Tiers setup. A few questions first:</p>
+          <div class="agent-questions" style="margin-top: 8px;">
+            <p>1. What behavior are you seeing that seems off? (e.g., partners not moving tiers, wrong discounts applied)</p>
+            <p>2. When did you first notice the issue?</p>
+            <p>3. Are specific partners affected, or all of them?</p>
+          </div>
+        </div>
+
+        <!-- Step 3: User answers + thinking steps -->
+        <div class="user-bubble convo-step" data-step="3">
+          <p>Partners are not moving up to Silver tier even though they've crossed the $200K threshold. It's been happening for about 2 weeks. Affects at least 3 partners I know of.</p>
+        </div>
+
+        <div class="agent-response convo-step" data-step="3">
+          <div class="thinking-completed">
+            <div class="thinking-step-done"><svg width="14" height="14" viewBox="0 0 16 16"><path fill="#2e844a" d="M8 1a7 7 0 100 14A7 7 0 008 1zm3.5 5.3l-4 4.5a.7.7 0 01-1 0l-2-2.2a.7.7 0 011-1l1.5 1.7 3.5-3.9a.7.7 0 011 .9z"/></svg><span>Checking tier assignment logic...</span></div>
+            <div class="thinking-step-done"><svg width="14" height="14" viewBox="0 0 16 16"><path fill="#2e844a" d="M8 1a7 7 0 100 14A7 7 0 008 1zm3.5 5.3l-4 4.5a.7.7 0 01-1 0l-2-2.2a.7.7 0 011-1l1.5 1.7 3.5-3.9a.7.7 0 011 .9z"/></svg><span>Querying partner revenue data for last 90 days...</span></div>
+            <div class="thinking-step-done"><svg width="14" height="14" viewBox="0 0 16 16"><path fill="#2e844a" d="M8 1a7 7 0 100 14A7 7 0 008 1zm3.5 5.3l-4 4.5a.7.7 0 01-1 0l-2-2.2a.7.7 0 011-1l1.5 1.7 3.5-3.9a.7.7 0 011 .9z"/></svg><span>Comparing against tier thresholds...</span></div>
+            <div class="thinking-step-done"><svg width="14" height="14" viewBox="0 0 16 16"><path fill="#2e844a" d="M8 1a7 7 0 100 14A7 7 0 008 1zm3.5 5.3l-4 4.5a.7.7 0 01-1 0l-2-2.2a.7.7 0 011-1l1.5 1.7 3.5-3.9a.7.7 0 011 .9z"/></svg><span>Found the issue.</span></div>
+          </div>
+        </div>
+
+        <!-- Step 4: Diagnosis + Recommendation card -->
+        <div class="agent-response convo-step" data-step="4">
+          <p class="agent-text">I found the problem. Your tier auto-assignment is configured to use <strong>trailing 12-month revenue</strong>, but 2 weeks ago the data sync frequency was changed from daily to weekly by another admin. This means the revenue calculation is stale — it's using 2-week-old data for 3 partners who crossed $200K threshold recently.</p>
+        </div>
+
+        <div class="agent-response convo-step" data-step="4">
+          <div class="rec-card">
+            <div class="rec-card-header">Recommended Configuration Change</div>
+            <div class="rec-card-body">
+              <div class="rec-row"><span class="rec-row-label">Data Sync Frequency</span><span class="rec-row-value"><span class="current">Weekly</span><span class="arrow">&rarr;</span><span class="recommended">Daily</span></span></div>
+              <div class="rec-row"><span class="rec-row-label">Tier Recalculation Trigger</span><span class="rec-row-value"><span class="current">Scheduled (Monday)</span><span class="arrow">&rarr;</span><span class="recommended">On revenue update event</span></span></div>
+              <div class="rec-row"><span class="rec-row-label">Backfill</span><span class="rec-row-value"><span class="recommended">Re-run tier assignment for 3 affected partners immediately</span></span></div>
+              <div class="rec-reasoning">Daily sync ensures revenue is always current. Event-based triggers mean partners promote instantly when they cross thresholds — no waiting for the Monday batch.</div>
+            </div>
+            <div class="rec-card-footer">
+              <span class="rec-warning"><svg width="14" height="14" viewBox="0 0 16 16"><path fill="#fe9339" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg> This change requires Channel Manager approval.</span>
+              <div class="rec-actions"><button class="rec-btn-reject">Reject</button><button class="rec-btn-approve">Approve & Apply</button></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: User approval + success -->
+        <div class="user-bubble convo-step" data-step="5">
+          <p>This makes sense. Go ahead and apply it.</p>
+        </div>
+
+        <div class="agent-response convo-step" data-step="5">
+          <div class="success-msg">
+            Done! I've updated the sync frequency to daily and enabled event-based tier recalculation. The 3 affected partners (CloudBridge, PeakReach, Meridian) have been promoted to Silver tier effective immediately. You'll see the changes reflected in the partner portal within the hour.
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom input footer -->
+      <div class="convo-input-footer">
+        <div class="convo-composer">
+          <div class="convo-editor">
+            <div class="convo-editor-content">
+              <p class="convo-placeholder">Follow up...</p>
+            </div>
+            <div class="convo-editor-toolbar">
+              <button class="toolbar-btn toolbar-btn-left">
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <rect x="1" y="1" width="5" height="5" rx="1" fill="#706e6b"/>
+                  <rect x="9" y="1" width="5" height="5" rx="1" fill="#706e6b"/>
+                  <rect x="1" y="9" width="5" height="5" rx="1" fill="#706e6b"/>
+                  <rect x="9" y="9" width="5" height="5" rx="1" fill="#706e6b"/>
+                </svg>
+              </button>
+              <button class="toolbar-btn toolbar-btn-right">
+                <svg width="16" height="16" viewBox="0 0 16 16">
+                  <path fill="#c9c9c9" d="M2 8l12-5v10L2 8z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <div class="footer-left">
+        <div class="footer-dropdown">
+          <label class="footer-label">Version</label>
+          <select class="footer-select" onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v3') window.location.href='../v3/index.html'; if(this.value==='v5') window.location.href='../v5/index.html';"><option value="v4" selected>V4 - Enhanced Setup Hub</option><option value="v5">V5 - Enhanced Setup Hub v2</option><option value="v1">V1 - Conversational Setup</option><option value="v2">V2 - Partner Feature Setup Hub</option><option value="v3">V3 - Slack + MCP Assistant</option></select>
+        </div>
+        <div class="footer-dropdown">
+          <label class="footer-label">Journey</label>
+          <select class="footer-select" id="journeySelect" onchange="if(this.value==='home') window.location.href='index.html'; if(this.value!=='30days') window.location.href='index.html';">
+            <option value="home">Sales Home (Default)</option>
+            <option value="notification">Notification Arrives</option>
+            <option value="hub">Setup Hub</option>
+            <option value="30days" selected>30 Days Later</option>
+          </select>
+        </div>
+      </div>
+      <div class="footer-center"><span class="footer-updated">Last updated: June 3, 2026</span></div>
+      <div class="footer-right">
+        <div class="footer-nav">
+          <button class="footer-nav-btn" id="prevBtn" title="Previous screen">
+            <svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.7 3.3L6 8l4.7 4.7-1.4 1.4L3.2 8l6.1-6.1 1.4 1.4z"/></svg>
+            <span>Prev</span>
+          </button>
+          <span class="footer-screen-indicator">Screen 6 / 6</span>
+          <button class="footer-nav-btn" id="nextBtn" disabled title="Next screen">
+            <span>Next</span>
+            <svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M5.3 12.7L10 8 5.3 3.3l1.4-1.4L12.8 8l-6.1 6.1-1.4-1.4z"/></svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Combined navigation: screens 1-5 are separate pages, screen 6+ are conversation steps within this page
+    const screens = ['index.html','screen-2.html','screen-3.html','screen-6.html','screen-8.html','screen-9.html','screen-10.html'];
+    const totalSteps = 5; // conversation steps within this page
+    const baseScreen = 6; // this page starts at screen 6 in the overall flow
+    const totalScreens = baseScreen + totalSteps - 1; // 10 total
+
+    // Get current step from URL param or default to 1
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentStep = parseInt(urlParams.get('step')) || 1;
+
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function showStep(step) {
+      document.querySelectorAll('.convo-step').forEach(el => {
+        const s = parseInt(el.dataset.step);
+        if (s <= step) {
+          el.classList.add('step-visible');
+        } else {
+          el.classList.remove('step-visible');
+        }
+      });
+      const screenNum = baseScreen + step - 1;
+      document.querySelector('.footer-screen-indicator').textContent = `Screen ${screenNum} / ${totalScreens}`;
+      prevBtn.disabled = false;
+      nextBtn.disabled = step >= totalSteps;
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStep <= 1) {
+        window.location.href = 'screen-5.html';
+      } else {
+        currentStep--;
+        history.replaceState(null, '', `screen-6.html?step=${currentStep}`);
+        showStep(currentStep);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        history.replaceState(null, '', `screen-6.html?step=${currentStep}`);
+        showStep(currentStep);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' && currentStep < totalSteps) { nextBtn.click(); }
+      else if (e.key === 'ArrowLeft') { prevBtn.click(); }
+    });
+
+    // Typing animation for step 1 (only on first load)
+    const userText = "I think my loyalty tiers are not working. Help me fix the configuration for it.";
+    const typingEl = document.getElementById('userTyping');
+
+    if (currentStep === 1) {
+      let charIdx = 0;
+      function typeChar() {
+        if (charIdx < userText.length) {
+          typingEl.textContent += userText[charIdx];
+          charIdx++;
+          setTimeout(typeChar, 35 + Math.random() * 30);
+        } else {
+          typingEl.classList.add('done');
+        }
+      }
+      setTimeout(typeChar, 300);
+    } else {
+      // If landing on step > 1, show full text immediately
+      typingEl.textContent = userText;
+      typingEl.classList.add('done');
+    }
+
+    // Init
+    showStep(currentStep);
+  </script>
+</body>
+</html>
