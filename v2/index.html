@@ -355,7 +355,7 @@
       <div class="footer-left">
         <div class="footer-dropdown">
           <label class="footer-label">Version</label>
-          <select class="footer-select" onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v4') window.location.href='../v4/index.html'; if(this.value==='v5') window.location.href='../v5/index.html'"><option value="v2" selected>V2 - Partner Feature Setup Hub</option><option value="v1">V1 - Conversational Setup</option><option value="v3">V3 - Slack + MCP Assistant</option><option value="v4">V4 - Enhanced Setup Hub</option><option value="v5">V5 - Enhanced Setup Hub v2</option></select>
+          <select class="footer-select" onchange="if(this.value==='v1') window.location.href='../v1/index.html'; if(this.value==='v3') window.location.href='../v3/index.html'; if(this.value==='v4') window.location.href='../v4/index.html'; if(this.value==='v5') window.location.href='../home.html'"><option value="v2" selected>V2 - Partner Feature Setup Hub</option><option value="v1">V1 - Conversational Setup</option><option value="v3">V3 - Slack + MCP Assistant</option><option value="v4">V4 - Enhanced Setup Hub</option><option value="v5">V5 - Enhanced Setup Hub v2</option></select>
         </div>
         <div class="footer-dropdown">
           <label class="footer-label">Journey</label>
@@ -374,7 +374,7 @@
   </div>
 
   <script>
-    const screens = ['index.html', 'screen-2.html', 'screen-3.html', 'screen-4.html', 'screen-5.html', 'screen-6.html'];
+    const screens = ['index.html']; // Single page prototype
     let currentScreen = 0;
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
