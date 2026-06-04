@@ -117,22 +117,7 @@
     .thinking-step-dim { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #2e844a; line-height: 18px; }
 
     /* Recommendation card */
-    .rec-card { background: #fff; border: 1px solid #d8d8d8; border-radius: 12px; overflow: hidden; margin: 12px 0; }
-    .rec-card-header { background: #f8f9fa; padding: 12px 16px; border-bottom: 1px solid #e5e5e5; font-size: 14px; font-weight: 600; color: #03234d; }
-    .rec-card-body { padding: 16px; }
-    .rec-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f3f3f3; font-size: 13px; }
-    .rec-row:last-child { border-bottom: none; }
-    .rec-label { color: #3e3e3c; font-weight: 500; min-width: 180px; }
-    .rec-value { color: #5c5c5c; display: flex; align-items: center; gap: 6px; }
-    .rec-current { color: #706e6b; text-decoration: line-through; }
-    .rec-arrow { color: #706e6b; }
-    .rec-recommended { color: #03234d; font-weight: 600; }
-    .rec-reasoning { margin-top: 12px; padding: 12px; background: #f0f7ff; border-radius: 8px; font-size: 12px; color: #03234d; line-height: 18px; }
-    .rec-footer { padding: 12px 16px; border-top: 1px solid #e5e5e5; display: flex; align-items: center; justify-content: space-between; }
-    .rec-warning { font-size: 12px; color: #706e6b; display: flex; align-items: center; gap: 6px; }
-    .rec-actions { display: flex; gap: 8px; }
-    .rec-btn-reject { height: 32px; padding: 0 16px; background: #fff; border: 1px solid #d8d8d8; border-radius: 6px; font-size: 13px; color: #3e3e3c; cursor: pointer; }
-    .rec-btn-approve { height: 32px; padding: 0 16px; background: #0176D3; border: none; border-radius: 6px; font-size: 13px; color: #fff; cursor: pointer; font-weight: 500; }
+    /* Recommendation text styling handled inline */
   </style>
 </head>
 <body>
@@ -246,46 +231,14 @@
             <p>I found the problem. Your tier auto-assignment is configured to use <strong>trailing 12-month revenue</strong>, but 2 weeks ago the data sync frequency was changed from daily to weekly by another admin. This means the revenue calculation is stale &mdash; it's using 2-week-old data for 3 partners who crossed $200K threshold recently.</p>
           </div>
 
-          <!-- Recommendation card -->
-          <div class="hidden" id="rec-card">
-            <div class="rec-card">
-              <div class="rec-card-header">Recommended Configuration Change</div>
-              <div class="rec-card-body">
-                <div class="rec-row">
-                  <span class="rec-label">Data Sync Frequency</span>
-                  <span class="rec-value">
-                    <span class="rec-current">Weekly</span>
-                    <span class="rec-arrow">&rarr;</span>
-                    <span class="rec-recommended">Daily</span>
-                  </span>
-                </div>
-                <div class="rec-row">
-                  <span class="rec-label">Tier Recalculation Trigger</span>
-                  <span class="rec-value">
-                    <span class="rec-current">Scheduled (Monday)</span>
-                    <span class="rec-arrow">&rarr;</span>
-                    <span class="rec-recommended">On revenue update event</span>
-                  </span>
-                </div>
-                <div class="rec-row">
-                  <span class="rec-label">Backfill</span>
-                  <span class="rec-value">
-                    <span class="rec-recommended">Re-run tier assignment for 3 affected partners immediately</span>
-                  </span>
-                </div>
-                <div class="rec-reasoning">Daily sync ensures revenue is always current. Event-based triggers mean partners promote instantly when they cross thresholds &mdash; no waiting for the Monday batch.</div>
-              </div>
-              <div class="rec-footer">
-                <span class="rec-warning">
-                  <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#fe9339" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg>
-                  This change requires Channel Manager approval.
-                </span>
-                <div class="rec-actions">
-                  <button class="rec-btn-reject">Reject</button>
-                  <button class="rec-btn-approve">Approve &amp; Apply</button>
-                </div>
-              </div>
-            </div>
+          <!-- Recommendation (plain text) -->
+          <div class="agent-msg hidden" id="rec-card">
+            <p style="margin-top:12px;"><strong>Here's what I recommend:</strong></p>
+            <p style="margin-top:8px;"><strong>1. Data Sync Frequency:</strong> Change from <span style="text-decoration:line-through;color:#706e6b;">Weekly</span> to <strong>Daily</strong></p>
+            <p><strong>2. Tier Recalculation Trigger:</strong> Change from <span style="text-decoration:line-through;color:#706e6b;">Scheduled (Monday)</span> to <strong>On revenue update event</strong></p>
+            <p><strong>3. Backfill:</strong> Re-run tier assignment for the 3 affected partners immediately</p>
+            <p style="margin-top:12px;font-size:13px;color:#5c5c5c;">Daily sync ensures revenue is always current. Event-based triggers mean partners promote instantly when they cross thresholds &mdash; no waiting for the Monday batch.</p>
+            <p style="margin-top:12px;">Would you like me to go ahead and apply these changes? Note: this requires Channel Manager approval.</p>
           </div>
         </div>
 

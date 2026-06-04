@@ -113,9 +113,7 @@
     .thread-divider { width: 100%; height: 1px; background: #e5e5e5; margin: 4px 0; }
 
     /* Recommendation card (dimmed context) */
-    .rec-card-dim { background: #fff; border: 1px solid #d8d8d8; border-radius: 12px; overflow: hidden; margin: 8px 0; }
-    .rec-card-dim-header { background: #f8f9fa; padding: 10px 14px; border-bottom: 1px solid #e5e5e5; font-size: 13px; font-weight: 600; color: #03234d; }
-    .rec-card-dim-body { padding: 10px 14px; font-size: 12px; color: #5c5c5c; }
+    /* Dimmed context uses inline styles */
 
     /* Success block */
     .success-block { background: #f0fdf0; border-left: 3px solid #2e844a; padding: 14px 16px; border-radius: 0 8px 8px 0; font-size: 14px; color: #1a5c2c; line-height: 20px; margin: 8px 0; }
@@ -203,10 +201,7 @@
               </div>
               <p style="font-size:13px;">I found the problem. Your tier auto-assignment is configured to use trailing 12-month revenue, but 2 weeks ago the data sync frequency was changed from daily to weekly...</p>
             </div>
-            <div class="rec-card-dim" style="margin-top:8px;">
-              <div class="rec-card-dim-header">Recommended Configuration Change</div>
-              <div class="rec-card-dim-body">Data Sync Frequency: Weekly &rarr; Daily | Tier Recalculation Trigger: Scheduled &rarr; On revenue update event | Backfill for 3 partners</div>
-            </div>
+            <p style="font-size:12px;margin-top:8px;"><strong>Recommendation:</strong> Change sync to Daily, trigger on revenue update, backfill 3 partners. Would you like me to apply these changes?</p>
           </div>
 
           <!-- Divider -->
