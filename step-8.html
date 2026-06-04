@@ -50,7 +50,7 @@
     .tree-item--active { background: #edf1f5; border-left: 4px solid #8595ad; font-weight: 500; }
 
     /* Main content (conversation) */
-    .main { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; position: relative; border-left: 1px solid #aeaeae; }
+    .main { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; position: relative;  }
 
     /* Title bar */
     .title-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid #e5e5e5; flex-shrink: 0; }
@@ -151,30 +151,6 @@
 
     <!-- Body: Sidebar + Main -->
     <div class="body">
-      <!-- LEFT SIDEBAR -->
-      <aside class="sidebar">
-        <div class="sidebar-search">
-          <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#706e6b" d="M11.4 10l4.3 4.3a1 1 0 01-1.4 1.4L10 11.4a6.5 6.5 0 111.4-1.4zM6.5 11a4.5 4.5 0 100-9 4.5 4.5 0 000 9z"/></svg>
-          <input type="text" placeholder="Quick Find">
-        </div>
-        <a href="#" class="tree-home">Setup Home</a>
-        <div class="tree-section">
-          <span class="tree-heading">ADMINISTRATION</span>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Users</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Data</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Email</a>
-        </div>
-        <div class="tree-section">
-          <span class="tree-heading">PLATFORM TOOLS</span>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Apps</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Feature Settings</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Slack</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Heroku</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> MuleSoft</a>
-          <a href="#" class="tree-item"><svg width="8" height="8" viewBox="0 0 16 16"><path fill="#706e6b" d="M6 4l4 4-4 4"/></svg> Einstein</a>
-          <a href="#" class="tree-item tree-item--active">Partner Ecosystem Configuration</a>
-        </div>
-      </aside>
 
       <!-- MAIN CONVERSATION -->
       <main class="main">
