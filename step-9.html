@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ask: Partner Cloud Setup - Save Confirmation</title>
+  <title>Ask: Partner Cloud Setup - Configuring Partner Experience</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; }
@@ -95,42 +95,26 @@
     .footer-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; font-size: 12px; color: #0176D3; font-family: inherit; }
     .footer-btn:disabled { color: #ccc; cursor: default; }
 
-    /* Extra styles for this screen */
-    .previous-context { opacity: 0.7; }
-    .previous-context .user-msg p { font-size: 12px; padding: 8px 14px; }
-    .previous-context .agent-msg p { font-size: 12px; }
-    .divider { border: none; border-top: 1px dashed #d8d8d8; margin: 8px 0; }
-    .success-block { display: flex; align-items: flex-start; gap: 8px; padding: 12px; background: #f0faf4; border: 1px solid #c8e6c9; border-radius: 8px; margin: 8px 0; }
-    .success-block svg { flex-shrink: 0; margin-top: 2px; }
-    .success-text { font-size: 14px; color: #1b5e20; font-weight: 600; }
-    .detail-text { font-size: 13px; color: #5c5c5c; margin-top: 8px; padding: 8px 12px; background: #f8f8f8; border-radius: 4px; }
-
-    /* Animation keyframes */
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes bounceDot {
-      0%, 80%, 100% { transform: scale(0); }
-      40% { transform: scale(1); }
-    }
-    @keyframes successPop {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* Animation utility classes */
+    /* Animations */
+    @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes bounceDot { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
     .hidden { opacity: 0; transform: translateY(12px); }
     .animate-in { animation: fadeSlideUp 0.4s ease forwards; }
-    .animate-success { animation: successPop 0.5s ease forwards; }
-    .dimmed { opacity: 0.6; }
+    .thinking-dots { display: inline-flex; gap: 4px; padding: 8px 0; }
+    .thinking-dots span { width: 8px; height: 8px; background: #0176D3; border-radius: 50%; display: inline-block; animation: bounceDot 1.4s infinite ease-in-out both; }
+    .thinking-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .thinking-dots span:nth-child(2) { animation-delay: -0.16s; }
+    .thinking-dots span:nth-child(3) { animation-delay: 0s; }
 
-    /* Thinking dots */
-    .thinking-dots { display: flex; align-items: center; gap: 8px; padding: 8px 0; }
-    .thinking-dots .dot { width: 8px; height: 8px; background: #7c3aed; border-radius: 50%; animation: bounceDot 1.4s infinite ease-in-out both; }
-    .thinking-dots .dot:nth-child(1) { animation-delay: -0.32s; }
-    .thinking-dots .dot:nth-child(2) { animation-delay: -0.16s; }
-    .thinking-dots .dot:nth-child(3) { animation-delay: 0s; }
+    /* Dimmed previous context */
+    .dimmed { opacity: 0.45; }
+
+    /* Divider */
+    .thread-divider { width: 100%; height: 1px; background: #e5e5e5; margin: 4px 0; }
+
+    /* Thinking steps */
+    .thinking-steps { display: flex; flex-direction: column; gap: 8px; padding: 4px 0; }
+    .thinking-step { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #2e844a; line-height: 18px; }
   </style>
 </head>
 <body>
@@ -206,55 +190,59 @@
         <div class="thread">
           <!-- Previous context (dimmed) -->
           <div class="dimmed">
-            <div class="user-msg"><p>Change the Gold tier threshold to start at $75K instead of $50K.</p></div>
             <div class="agent-msg">
               <div class="agent-hdr">
                 <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
                 <span class="agent-name">Agentforce</span>
               </div>
-              <p>Updated tiers:</p>
-              <p>Silver: $0-$75K | Gold: $75K-$200K | Platinum: $200K+</p>
-              <p><small>Ready to save?</small></p>
+              <p>I can help with that. Let me look into your Loyalty Tiers setup. A few questions first:</p>
+              <p style="font-size:13px;color:#001e5b;line-height:19px;margin-top:6px;">1. What behavior are you seeing that seems off?</p>
+              <p style="font-size:13px;color:#001e5b;line-height:19px;">2. When did you first notice the issue?</p>
+              <p style="font-size:13px;color:#001e5b;line-height:19px;">3. Are specific partners affected, or all of them?</p>
             </div>
           </div>
 
           <!-- Divider -->
-          <hr class="divider">
+          <div class="thread-divider"></div>
 
-          <!-- New exchange -->
-          <div id="user-save" class="user-msg hidden"><p>Save</p></div>
-
-          <!-- Thinking indicator -->
-          <div id="thinking" class="hidden">
-            <div class="agent-hdr">
-              <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
-              <span class="agent-name">Agentforce</span>
-            </div>
-            <div class="thinking-dots">
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-            </div>
+          <!-- User answer -->
+          <div class="user-msg hidden" id="user-msg">
+            <p>Partners are not moving up to Silver tier even though they've crossed the $200K threshold. It's been happening for about 2 weeks. Affects at least 3 partners I know of.</p>
           </div>
 
-          <!-- Agent response -->
-          <div id="agent-response" class="agent-msg" style="display:none;">
+          <!-- Thinking dots -->
+          <div class="hidden" id="thinking">
             <div class="agent-hdr">
               <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
               <span class="agent-name">Agentforce</span>
             </div>
+            <div class="thinking-dots"><span></span><span></span><span></span></div>
+          </div>
 
-            <div id="success-block" class="success-block hidden">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="9" stroke="#2e844a" stroke-width="1.5"/>
-                <path d="M6 10.5l2.5 2.5 5.5-5.5" stroke="#2e844a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span class="success-text">Loyalty tiers saved successfully.</span>
+          <!-- Thinking steps -->
+          <div class="hidden" id="thinking-steps">
+            <div class="agent-hdr">
+              <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#7c3aed" d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11l-1.5-3.5L3 6l3.5-1.5L8 1z"/></svg>
+              <span class="agent-name">Agentforce</span>
             </div>
-
-            <p id="explanation" class="hidden">Your 3-tier structure (Silver, Gold, Platinum) is now active. Partners will be automatically categorized based on their annual revenue at the next sync cycle.</p>
-
-            <div id="detail" class="detail-text hidden">You can review or edit these anytime in <strong>Setup &gt; Partner Cloud Configuration &gt; Loyalty Tiers</strong>.</div>
+            <div class="thinking-steps">
+              <div class="thinking-step hidden" id="step1">
+                <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#2e844a"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Checking tier assignment logic...</span>
+              </div>
+              <div class="thinking-step hidden" id="step2">
+                <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#2e844a"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Querying partner revenue data for last 90 days...</span>
+              </div>
+              <div class="thinking-step hidden" id="step3">
+                <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#2e844a"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Comparing against tier thresholds...</span>
+              </div>
+              <div class="thinking-step hidden" id="step4">
+                <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#2e844a"/><path d="M5 8l2 2 4-4" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <span>Found the issue.</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -297,53 +285,45 @@
       </div>
       <div>Last updated: June 4, 2026</div>
       <div class="footer-nav">
-        <button class="footer-btn" onclick="window.location.href='step-5.html'">&#8592; Prev</button>
-        <span>Step 6 / 11</span>
-        <button class="footer-btn" onclick="window.location.href='step-7.html'">Next &#8594;</button>
+        <button class="footer-btn" onclick="window.location.href='step-8.html'">&#8592; Prev</button>
+        <span>Step 9 / 11</span>
+        <button class="footer-btn" onclick="window.location.href='step-10.html'">Next &#8594;</button>
       </div>
     </footer>
   </div>
+
   <script>
-    (function() {
-      var userSave = document.getElementById('user-save');
-      var thinking = document.getElementById('thinking');
-      var agentResponse = document.getElementById('agent-response');
-      var successBlock = document.getElementById('success-block');
-      var explanation = document.getElementById('explanation');
-      var detail = document.getElementById('detail');
+    function show(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('hidden');
+        el.classList.add('animate-in');
+      }
+    }
+    function hide(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.style.display = 'none';
+      }
+    }
 
-      // Step 1: After 0.3s, show user message "Save"
-      setTimeout(function() {
-        userSave.classList.remove('hidden');
-        userSave.classList.add('animate-in');
-      }, 300);
+    // Step 1: User message slides in (0.3s)
+    setTimeout(function() { show('user-msg'); }, 300);
 
-      // Step 2: After 1s, show thinking dots
-      setTimeout(function() {
-        thinking.classList.remove('hidden');
-        thinking.classList.add('animate-in');
-      }, 1000);
+    // Step 2: Thinking dots (1.2s)
+    setTimeout(function() { show('thinking'); }, 1200);
 
-      // Step 3: After 2s, hide thinking, show success block with successPop
-      setTimeout(function() {
-        thinking.style.display = 'none';
-        agentResponse.style.display = '';
-        successBlock.classList.remove('hidden');
-        successBlock.classList.add('animate-success');
-      }, 2000);
+    // Step 3: Hide thinking dots, show thinking steps container (2.5s)
+    setTimeout(function() {
+      hide('thinking');
+      show('thinking-steps');
+    }, 2500);
 
-      // Step 4: After 2.8s, show explanation paragraph
-      setTimeout(function() {
-        explanation.classList.remove('hidden');
-        explanation.classList.add('animate-in');
-      }, 2800);
-
-      // Step 5: After 3.5s, show detail text
-      setTimeout(function() {
-        detail.classList.remove('hidden');
-        detail.classList.add('animate-in');
-      }, 3500);
-    })();
+    // Step 4: Thinking steps appear one by one (0.5s stagger)
+    setTimeout(function() { show('step1'); }, 3000);
+    setTimeout(function() { show('step2'); }, 3500);
+    setTimeout(function() { show('step3'); }, 4000);
+    setTimeout(function() { show('step4'); }, 4500);
   </script>
 </body>
 </html>
