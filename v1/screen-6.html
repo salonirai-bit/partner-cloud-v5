@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V1 Summary - Salesforce</title>
+  <link rel="stylesheet" href="https://unpkg.com/@salesforce-ux/design-system@2/assets/styles/salesforce-lightning-design-system.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="screen-6.css">
+</head>
+<body>
+  <div class="app-container app-container--summary">
+
+    <!-- Content -->
+    <div class="summary-page">
+      <!-- Header -->
+      <div class="summary-header">
+        <div class="summary-header-left">
+          <div class="version-badge">V1</div>
+          <div class="summary-header-text">
+            <h1>End of Flow — V1 Retrospective</h1>
+            <p>Conversational Setup using Co-worker (Ask Home)</p>
+          </div>
+        </div>
+        <div class="summary-header-right">
+          <span class="summary-meta">5 screens | Single-session linear flow</span>
+        </div>
+      </div>
+
+
+      <!-- Limitations / Cons -->
+      <div class="summary-section summary-section--cons">
+        <div class="section-icon section-icon--red">
+          <svg width="20" height="20" viewBox="0 0 16 16"><path fill="white" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg>
+        </div>
+        <div class="section-content">
+          <h2>Limitations of this approach</h2>
+
+          <div class="con-card">
+            <div class="con-card-number">1</div>
+            <div class="con-card-content">
+              <h3>No holistic visibility of all features at once</h3>
+              <p class="con-description">The linear chat flow only shows one feature at a time. The channel manager can't see the full picture — which features are done, which are pending, how they relate to each other. There's no dashboard or bird's-eye view.</p>
+              <div class="con-implication">
+                <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#c23934" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg>
+                <span><strong>Impact:</strong> User can't quickly check "what did I set for Deal Rules?" without scrolling back through conversation history. No persistent state reference panel.</span>
+              </div>
+              <div class="con-question">
+                <span class="question-label">Design Question</span>
+                <p>Should there be a persistent sidebar or summary card that shows all 6 features and their status at all times?</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="con-card">
+            <div class="con-card-number">2</div>
+            <div class="con-card-content">
+              <h3>External navigation breaks the flow</h3>
+              <p class="con-description">Some features may require the user to leave this page — e.g., uploading a CSV of partner data, configuring SSO in a separate admin panel, or approving something in another Salesforce tab. Once they leave, the conversational context is lost.</p>
+              <div class="con-implication">
+                <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#c23934" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg>
+                <span><strong>Impact:</strong> No mechanism to bring the user back to exactly where they left off. Browser back button loses state. No deep-link back to "Feature 4, step 2."</span>
+              </div>
+              <div class="con-question">
+                <span class="question-label">Design Question</span>
+                <p>Can we persist a "Return to setup" notification/banner? Should the agent send a follow-up prompt when it detects the user completed the external action?</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="con-card">
+            <div class="con-card-number">3</div>
+            <div class="con-card-content">
+              <h3>Abandoned sessions have no recovery path</h3>
+              <p class="con-description">If the user closes the browser, gets interrupted mid-setup, or simply runs out of time — there's no guaranteed way to resume. The chat history might persist, but the interactive cards with editable fields won't regenerate in the same state.</p>
+              <div class="con-implication">
+                <svg width="14" height="14" viewBox="0 0 16 16"><path fill="#c23934" d="M8 1a7 7 0 100 14A7 7 0 008 1zm1 10H7V9h2v2zm0-4H7V4h2v3z"/></svg>
+                <span><strong>Impact:</strong> User returns to a dead conversation. They have to say "continue where I left off" and hope the agent can reconstruct state. Saved features are fine — but in-progress ones are lost.</span>
+              </div>
+              <div class="con-question">
+                <span class="question-label">Design Question</span>
+                <p>Should we auto-save drafts? Show a "Resume setup" card on the Ask Home page? Persist partial config to the backend before the user hits "Save"?</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- V2 CTA -->
+      <div class="v2-cta">
+        <div class="v2-cta-text">
+          <h3>Ready to see the alternative?</h3>
+          <p>A hub-based approach that solves these limitations</p>
+        </div>
+        <button class="v2-cta-btn" onclick="window.location.href='v2/index.html'">
+          Go to V2: Partner Feature Setup Hub
+          <svg width="16" height="16" viewBox="0 0 16 16"><path fill="#032e61" d="M5.3 12.7L10 8 5.3 3.3l1.4-1.4L12.8 8l-6.1 6.1-1.4-1.4z"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Global Footer -->
+    <footer class="global-footer">
+      <div class="footer-left">
+        <div class="footer-dropdown">
+          <label class="footer-label">Version</label>
+          <select class="footer-select" onchange="if(this.value==='v2') window.location.href='v2/index.html'; if(this.value==='v4') window.location.href='v4/index.html'"><option value="v1" selected>V1 - Conversational Setup (Co-worker)</option><option value="v2">V2 - Partner Feature Setup Hub</option><option value="v3">V3 - Slack + MCP Assistant</option><option value="v4">V4 - Enhanced Setup Hub</option></select>
+        </div>
+        <div class="footer-dropdown">
+          <label class="footer-label">Journey</label>
+          <select class="footer-select"><option value="ask-home" selected>Ask Home - Landing</option><option value="conversation" disabled>Conversation Flow</option><option value="results" disabled>Results View</option></select>
+        </div>
+      </div>
+      <div class="footer-center"><span class="footer-updated">Last updated: June 3, 2026</span></div>
+      <div class="footer-right">
+        <div class="footer-nav">
+          <button class="footer-nav-btn" id="prevBtn" title="Previous screen"><svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M10.7 3.3L6 8l4.7 4.7-1.4 1.4L3.2 8l6.1-6.1 1.4 1.4z"/></svg><span>Prev</span></button>
+          <span class="footer-screen-indicator">Screen 6 / 6</span>
+          <button class="footer-nav-btn" id="nextBtn" disabled title="Next screen"><span>Next</span><svg width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M5.3 12.7L10 8 5.3 3.3l1.4-1.4L12.8 8l-6.1 6.1-1.4-1.4z"/></svg></button>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const screens = ['v1-index.html', 'screen-2.html', 'screen-3.html', 'screen-4.html', 'screen-5.html', 'screen-6.html'];
+    let currentScreen = 5;
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updateNavButtons() {
+      prevBtn.disabled = currentScreen === 0;
+      nextBtn.disabled = currentScreen === screens.length - 1;
+      document.querySelector('.footer-screen-indicator').textContent = `Screen ${currentScreen + 1} / ${screens.length}`;
+    }
+    prevBtn.addEventListener('click', () => { if (currentScreen > 0) { currentScreen--; window.location.href = screens[currentScreen]; }});
+    nextBtn.addEventListener('click', () => { if (currentScreen < screens.length - 1) { currentScreen++; window.location.href = screens[currentScreen]; }});
+    document.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft' && !prevBtn.disabled) prevBtn.click(); else if (e.key === 'ArrowRight' && !nextBtn.disabled) nextBtn.click(); });
+    updateNavButtons();
+  </script>
+</body>
+</html>

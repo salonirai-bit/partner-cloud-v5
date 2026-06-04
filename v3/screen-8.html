@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V3 — Screen 8: MCP User Gives Intent</title>
+<link rel="stylesheet" href="v3.css">
+</head>
+<body>
+<div class="v3-shell">
+  <div class="v3-content">
+    <div class="v3-sf">
+      <div class="v3-sf-header">
+        <span>Setup &gt; Partner Cloud &gt; Training Tracks</span>
+        <h2>Training Tracks Configuration</h2>
+      </div>
+      <div class="v3-sf-body">
+        <div class="v3-form-field">
+          <label>Track Name</label>
+          <div class="field-box">Enter track name...</div>
+        </div>
+        <div class="v3-form-field">
+          <label>Modules</label>
+          <div class="field-box">Select modules...</div>
+        </div>
+        <div class="v3-form-field">
+          <label>Completion Requirement</label>
+          <div class="field-box">Define completion criteria...</div>
+        </div>
+        <div class="v3-form-field">
+          <label>Auto-Assign</label>
+          <div class="field-box">Select partner segment...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MCP Panel -->
+  <div class="v3-mcp">
+    <div class="v3-mcp-header">
+      <span>&#10024; Setup Assistant</span>
+      <span style="cursor:pointer; color:#999;">&#8211;</span>
+    </div>
+    <div class="v3-mcp-body">
+      <div class="mcp-msg user">I want new Bronze partners to complete product training before they can register deals</div>
+      <div class="mcp-msg agent">Got it. I'll configure:
+        <ul>
+          <li>Track Name: "Partner Onboarding Essentials"</li>
+          <li>Modules: Product Overview, Sales Methodology, Deal Registration</li>
+          <li>Requirement: All modules + 80% quiz pass</li>
+          <li>Auto-assign: All new Bronze-tier partners</li>
+        </ul>
+        Applying now...
+      </div>
+    </div>
+    <div class="v3-mcp-input">Type a message...</div>
+  </div>
+  <div class="v3-footer">
+    <select onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v4') window.location.href='../v4/index.html'">
+      <option value="v3" selected>V3</option>
+      <option value="v1">V1</option>
+      <option value="v2">V2</option>
+    </select>
+    <select onchange="if(this.value) window.location.href=this.value">
+      <option value="">Journey: Slack to SF</option>
+    </select>
+    <span class="counter">8 / 14</span>
+    <button onclick="window.location.href='screen-7.html'">&larr; Prev</button>
+    <button onclick="window.location.href='screen-9.html'">Next &rarr;</button>
+  </div>
+</div>
+<script>
+const screens = ['index.html','screen-2.html','screen-3.html','screen-4.html','screen-5.html','screen-6.html','screen-7.html','screen-8.html','screen-9.html','screen-10.html','screen-11.html','screen-12.html','screen-13.html','screen-14.html'];
+const current = 7;
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' && current < screens.length - 1) window.location.href = screens[current + 1];
+  if (e.key === 'ArrowLeft' && current > 0) window.location.href = screens[current - 1];
+});
+</script>
+</body>
+</html>

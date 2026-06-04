@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V3 — Screen 5: Salesforce Landing + MCP Panel</title>
+<link rel="stylesheet" href="v3.css">
+</head>
+<body>
+<div class="v3-shell">
+  <div class="v3-content">
+    <div class="v3-sf">
+      <div class="v3-sf-header">
+        <span>Setup &gt; Partner Cloud Configuration</span>
+        <h2>Partner Cloud Configuration</h2>
+      </div>
+      <div class="v3-sf-body">
+        <div class="v3-sf-section">
+          <h3>Deal Registration Settings</h3>
+          <div class="v3-placeholder"></div>
+          <div class="v3-placeholder"></div>
+        </div>
+        <div class="v3-sf-section">
+          <h3>Territory Rules</h3>
+          <div class="v3-placeholder"></div>
+          <div class="v3-placeholder lg"></div>
+        </div>
+        <div class="v3-sf-section">
+          <h3>Feature Toggles</h3>
+          <div class="v3-placeholder"></div>
+          <div class="v3-placeholder"></div>
+          <div class="v3-placeholder"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MCP Panel -->
+  <div class="v3-mcp">
+    <div class="v3-mcp-header">
+      <span>&#10024; Setup Assistant</span>
+      <span style="cursor:pointer; color:#999;">&#8211;</span>
+    </div>
+    <div class="v3-mcp-body">
+      <div class="mcp-msg agent">Remaining features to configure:</div>
+      <div class="mcp-item active">Training Tracks</div>
+      <div class="mcp-item">Referral Program</div>
+      <div class="mcp-item">Commission Rules</div>
+      <div class="mcp-item">Partner Portal</div>
+    </div>
+    <div class="v3-mcp-input">What would you like to do?</div>
+  </div>
+  <div class="v3-footer">
+    <select onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v4') window.location.href='../v4/index.html'">
+      <option value="v3" selected>V3</option>
+      <option value="v1">V1</option>
+      <option value="v2">V2</option>
+    </select>
+    <select onchange="if(this.value) window.location.href=this.value">
+      <option value="">Journey: Slack to SF</option>
+    </select>
+    <span class="counter">5 / 14</span>
+    <button onclick="window.location.href='screen-4.html'">&larr; Prev</button>
+    <button onclick="window.location.href='screen-6.html'">Next &rarr;</button>
+  </div>
+</div>
+<script>
+const screens = ['index.html','screen-2.html','screen-3.html','screen-4.html','screen-5.html','screen-6.html','screen-7.html','screen-8.html','screen-9.html','screen-10.html','screen-11.html','screen-12.html','screen-13.html','screen-14.html'];
+const current = 4;
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' && current < screens.length - 1) window.location.href = screens[current + 1];
+  if (e.key === 'ArrowLeft' && current > 0) window.location.href = screens[current - 1];
+});
+</script>
+</body>
+</html>

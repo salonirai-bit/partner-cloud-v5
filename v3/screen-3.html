@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V3 — Screen 3: Bot Sends Canvas</title>
+<link rel="stylesheet" href="v3.css">
+</head>
+<body>
+<div class="v3-shell">
+  <div class="v3-content">
+    <div class="slack-window">
+      <!-- Top Bar -->
+      <div class="slack-topbar">
+        <div class="traffic-lights">
+          <div class="traffic-light red"></div>
+          <div class="traffic-light yellow"></div>
+          <div class="traffic-light green"></div>
+        </div>
+        <div class="topbar-search">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg>
+          <span>Search Salesforce</span>
+        </div>
+        <div class="topbar-right">
+          <span class="topbar-feedback">Give Feedback</span>
+          <div class="topbar-avatar">CV</div>
+        </div>
+      </div>
+
+      <!-- 3-Column Layout -->
+      <div class="slack-body">
+        <!-- Column 1: Icon Sidebar -->
+        <div class="slack-icon-sidebar">
+          <div class="workspace-icon">S</div>
+          <div class="icon-btn">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+          </div>
+          <div class="icon-btn active">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"/></svg>
+          </div>
+          <div class="icon-btn">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg>
+          </div>
+          <div class="icon-btn">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/></svg>
+          </div>
+          <div class="icon-sidebar-bottom">
+            <div class="icon-sidebar-avatar">CV</div>
+          </div>
+        </div>
+
+        <!-- Column 2: Channel Sidebar -->
+        <div class="slack-channel-sidebar">
+          <div class="channel-sidebar-header">
+            <h2>Salesforce <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></h2>
+            <div class="compose-btn">&#9998;</div>
+          </div>
+          <div class="sidebar-nav-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z" clip-rule="evenodd"/></svg>
+            Threads
+          </div>
+          <div class="sidebar-nav-item">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg>
+            Drafts &amp; Sent
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-header">
+              <span>Channels</span>
+              <span class="section-plus">+</span>
+            </div>
+            <div class="channel-item"><span class="hash">#</span> general</div>
+            <div class="channel-item"><span class="hash">#</span> sales</div>
+            <div class="channel-item"><span class="hash">#</span> partners</div>
+            <div class="channel-item active"><span class="hash">#</span> partner-cloud</div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-section-header">
+              <span>Direct Messages</span>
+              <span class="section-plus">+</span>
+            </div>
+            <div class="dm-item">
+              <div class="dm-avatar" style="background:#7c3aed">AJ</div>
+              Alex Johnson
+              <div class="dm-status online"></div>
+            </div>
+            <div class="dm-item">
+              <div class="dm-avatar" style="background:#ea580c">ML</div>
+              Maria Lopez
+              <div class="dm-status"></div>
+            </div>
+            <div class="dm-item">
+              <div class="dm-avatar" style="background:#1264a3">TS</div>
+              Tom Smith
+              <div class="dm-status online"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Main Content — Channel Messages -->
+        <div class="slack-main">
+          <div class="slack-main-header">
+            <div class="channel-name">
+              <span class="hash-icon">#</span> partner-cloud
+            </div>
+            <div class="header-actions">
+              <span class="members-count">
+                <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+                4
+              </span>
+            </div>
+          </div>
+
+          <div class="slack-messages">
+            <!-- User message -->
+            <div class="message">
+              <div class="msg-avatar user">CV</div>
+              <div class="msg-content">
+                <div class="msg-header">
+                  <span class="msg-author">Carmen Vega</span>
+                  <span class="msg-time">10:34 AM</span>
+                </div>
+                <div class="msg-text">
+                  <p>How do I get started with setup?</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bot reply -->
+            <div class="message">
+              <div class="msg-avatar bot">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M13 7H7v6h6V7z"/><path fill-rule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clip-rule="evenodd"/></svg>
+              </div>
+              <div class="msg-content">
+                <div class="msg-header">
+                  <span class="msg-author">Partner Cloud Bot</span>
+                  <span class="msg-badge">APP</span>
+                  <span class="msg-time">10:35 AM</span>
+                </div>
+                <div class="msg-text">
+                  <p>Hey Carmen! &#128075; Welcome to your Partner Cloud Setup!</p>
+                  <p>Here are the steps I'll walk you through:</p>
+                  <ol>
+                    <li>Define Deal Rules</li>
+                    <li>Setup Loyalty Tiers</li>
+                    <li>Configure Training</li>
+                    <li>Launch Referral Program</li>
+                    <li>Set Commission Rules</li>
+                    <li>Partner Portal</li>
+                  </ol>
+                  <p>Expect ~15 mins to completion. You can leave and come back anytime.</p>
+                </div>
+
+                <!-- Canvas Card -->
+                <div class="canvas-card">
+                  <div class="canvas-card-banner"></div>
+                  <div class="canvas-card-body">
+                    <div class="canvas-card-label">Canvas</div>
+                    <div class="canvas-card-title">&#128203; Salesforce Sales Setup</div>
+                    <div class="canvas-card-subtitle">Welcome to the Agentic Enterprise</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input Bar -->
+          <div class="slack-input-bar">
+            <div class="input-bar-wrapper">
+              <div class="input-bar-field">Message #partner-cloud</div>
+              <div class="input-bar-toolbar">
+                <div class="toolbar-btn"><strong>B</strong></div>
+                <div class="toolbar-btn"><em>I</em></div>
+                <div class="toolbar-btn"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd"/></svg></div>
+                <div class="toolbar-divider"></div>
+                <div class="toolbar-btn"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"/></svg></div>
+                <div class="toolbar-btn"><svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path fill-rule="evenodd" d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z" clip-rule="evenodd"/></svg></div>
+                <div class="toolbar-send">
+                  <svg viewBox="0 0 20 20" fill="currentColor" width="14" height="14"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="v3-footer">
+    <select onchange="if(this.value==='v1') window.location.href='../v1-index.html'; if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v4') window.location.href='../v4/index.html'">
+      <option value="v3" selected>V3</option>
+      <option value="v1">V1</option>
+      <option value="v2">V2</option>
+    </select>
+    <select onchange="if(this.value) window.location.href=this.value">
+      <option value="">Journey: Slack to SF</option>
+    </select>
+    <span class="counter">3 / 14</span>
+    <button onclick="window.location.href='screen-2.html'">&larr; Prev</button>
+    <button onclick="window.location.href='screen-4.html'">Next &rarr;</button>
+  </div>
+</div>
+<script>
+const screens = ['index.html','screen-2.html','screen-3.html','screen-4.html','screen-5.html','screen-6.html','screen-7.html','screen-8.html','screen-9.html','screen-10.html','screen-11.html','screen-12.html','screen-13.html','screen-14.html'];
+const current = 2;
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' && current < screens.length - 1) window.location.href = screens[current + 1];
+  if (e.key === 'ArrowLeft' && current > 0) window.location.href = screens[current - 1];
+});
+</script>
+</body>
+</html>

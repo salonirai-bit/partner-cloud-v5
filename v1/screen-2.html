@@ -146,7 +146,7 @@
           <div class="composer-wrapper">
             <div class="composer-editor">
               <div class="editor-content">
-                <p class="placeholder-text">Try "What changed with my top opportunities this week?"</p>
+                <p class="user-input-text">Help me set up my Partner Selling Environment and the related features</p>
               </div>
               <div class="editor-toolbar">
                 <button class="toolbar-btn toolbar-btn-left">
@@ -159,7 +159,7 @@
                 </button>
                 <button class="toolbar-btn toolbar-btn-right">
                   <svg width="16" height="16" viewBox="0 0 16 16">
-                    <path fill="#c9c9c9" d="M2 8l12-5v10L2 8z"/>
+                    <path fill="#0176D3" d="M2 8l12-5v10L2 8z"/>
                   </svg>
                 </button>
               </div>
@@ -228,11 +228,10 @@
       <div class="footer-left">
         <div class="footer-dropdown">
           <label class="footer-label">Version</label>
-          <select class="footer-select" id="versionSelect" onchange="if(this.value==='v2') window.location.href='../v2/index.html'; if(this.value==='v3') window.location.href='../v3/index.html'; if(this.value==='v4') window.location.href='../v4/index.html'; if(this.value==='v5') window.location.href='../home.html';">
+          <select class="footer-select" id="versionSelect" onchange="if(this.value==='v2') window.location.href='v2/index.html'; if(this.value==='v4') window.location.href='v4/index.html'">
             <option value="v1" selected>V1 - Conversational Setup (Co-worker)</option>
             <option value="v2">V2 - Partner Feature Setup Hub</option>
             <option value="v3">V3 - Slack + MCP Assistant</option><option value="v4">V4 - Enhanced Setup Hub</option>
-            <option value="v5">V5 - Enhanced Setup Hub v2</option>
           </select>
         </div>
         <div class="footer-dropdown">
@@ -269,8 +268,8 @@
 
   <script>
     // Navigation state
-    const screens = ['index.html', 'screen-2.html', 'screen-3.html', 'screen-4.html', 'screen-5.html', 'screen-6.html'];
-    let currentScreen = 0;
+    const screens = ['v1-index.html', 'screen-2.html', 'screen-3.html', 'screen-4.html', 'screen-5.html', 'screen-6.html'];
+    let currentScreen = 1;
 
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -307,6 +306,5 @@
 
     updateNavButtons();
   </script>
-<div style="position:fixed;bottom:16px;left:16px;z-index:9999;"><a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#03234d;color:white;text-decoration:none;border-radius:8px;font-size:13px;font-family:-apple-system,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.2);">← All Versions</a></div>
 </body>
 </html>

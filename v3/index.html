@@ -756,15 +756,15 @@
       <div class="v3-footer-right">
         <button class="v3-footer-btn" disabled>&#8592; Prev</button>
         <span class="v3-footer-indicator">1 / 14</span>
-        <button class="v3-footer-btn" onclick="// single page prototype">Next &#8594;</button>
+        <button class="v3-footer-btn" onclick="window.location.href='screen-2.html'">Next &#8594;</button>
       </div>
     </footer>
   </div>
 
   <script>
     document.addEventListener('keydown', e => {
-      const screens = ['index.html']; // Single page prototype
-      if (e.key === 'ArrowRight') // single page;
+      const screens = ['index.html','screen-2.html','screen-3.html','screen-4.html','screen-5.html','screen-6.html','screen-7.html','screen-8.html','screen-9.html','screen-10.html','screen-11.html','screen-12.html','screen-13.html','screen-14.html'];
+      if (e.key === 'ArrowRight') window.location.href = 'screen-2.html';
     });
   </script>
 <div style="position:fixed;bottom:16px;left:16px;z-index:9999;"><a href="../index.html" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#03234d;color:white;text-decoration:none;border-radius:8px;font-size:13px;font-family:-apple-system,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,0.2);">← All Versions</a></div>
