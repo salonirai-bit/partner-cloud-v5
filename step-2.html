@@ -100,9 +100,9 @@
     .fb-link { color: #0176D3; text-decoration: none; font-size: 10px; }
 
     /* Footer */
-    .footer { display: flex; align-items: center; justify-content: space-between; height: 36px; padding: 0 16px; background: #f8f8f8; border-top: 1px solid #e5e5e5; flex-shrink: 0; font-size: 12px; color: #5c5c5c; }
-    .footer-nav { display: flex; align-items: center; gap: 12px; }
-    .footer-btn { display: flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; font-size: 12px; color: #0176D3; font-family: inherit; }
+    .footer { display: flex; align-items: center; justify-content: space-between; height: 48px; padding: 0 20px; background: #1b2a3e; border-top: 1px solid #2d3f54; flex-shrink: 0; font-size: 12px; color: #8899aa; box-shadow: 0 -2px 8px rgba(0,0,0,0.15); }
+    .footer-nav { display: flex; align-items: center; gap: 12px; } .footer span { color: #8899aa; }
+    .footer-btn { display: flex; align-items: center; gap: 4px; background: none; border: 1px solid #3d5a73; border-radius: 4px; cursor: pointer; font-size: 12px; color: #ffffff; font-family: inherit; height: 28px; padding: 0 12px; } .footer-btn:hover { background: #0176D3; border-color: #0176D3; }
     .footer-btn:disabled { color: #ccc; cursor: default; }
 
     /* Animations */
@@ -265,8 +265,8 @@
     <!-- Footer -->
     <footer class="footer">
       <div style="display:flex;align-items:center;gap:12px;">
-        <label style="font-weight:500;">VERSION</label>
-        <select style="font-size:12px;border:1px solid #d8d8d8;border-radius:4px;padding:2px 8px;font-family:inherit;cursor:pointer;" onchange="var v=this.value;if(v==='v1')location.href='v1/index.html';if(v==='v2')location.href='v2/index.html';if(v==='v3')location.href='v3/index.html';if(v==='v4')location.href='v4/index.html';">
+        <label style="font-weight:500;color:#8899aa;font-size:11px;letter-spacing:0.5px;">VERSION</label>
+        <select style="font-size:12px;border:1px solid #3d5a73;border-radius:4px;padding:4px 8px;font-family:inherit;cursor:pointer;background:#2d4256;color:#ffffff;" onchange="var v=this.value;if(v==='v1')location.href='v1/index.html';if(v==='v2')location.href='v2/index.html';if(v==='v3')location.href='v3/index.html';if(v==='v4')location.href='v4/index.html';">
           <option value="v5" selected>V5 - Setup Hub</option>
           <option value="v4">V4 - Enhanced Hub</option>
           <option value="v3">V3 - Slack + MCP</option>
@@ -274,7 +274,7 @@
           <option value="v1">V1 - Conversational</option>
         </select>
       </div>
-      <div>Last updated: June 4, 2026</div>
+      <div style="color:#6b7d8e;">Last updated: June 4, 2026</div>
       <div class="footer-nav">
         <button class="footer-btn" onclick="window.location.href='step-1.html'">&#8592; Prev</button>
         <span>Step 2 / 11</span>
